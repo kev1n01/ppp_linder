@@ -25,6 +25,7 @@
     "dependencies": {
         "@headlessui/vue": "^1.7.23",
         "@inertiajs/vue3": "^2.0.0-beta.3",
+        "@midudev/tailwind-animations": "^0.2.0",
         "@vitejs/plugin-vue": "^5.2.1",
         "@vueuse/core": "^12.0.0",
         "autoprefixer": "^10.4.20",

@@ -8,12 +8,25 @@ import {
     CollapsibleTrigger,
 } from '@/components/ui/collapsible'
 import { ChevronRight } from 'lucide-vue-next';
+import { reactive } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     items: NavItem[];
 }>();
 
 const page = usePage<SharedData>();
+
+const openStates = reactive<{ [key: string]: boolean }>({});
+
+const isActiveCollapsible = (item: NavItem) => {
+    return item.items?.some(subItem => subItem.href === page.url);
+};
+
+props.items.forEach(item => {
+    if (item.isCollapsible && item.items?.length) {
+        openStates[item.title] = isActiveCollapsible(item) ?? false;
+    }
+});
 </script>
 <template>
     <SidebarGroup class="px-2 py-0">
@@ -30,13 +43,13 @@ const page = usePage<SharedData>();
             </SidebarMenuItem>
 
             <!-- Elementos colapsables -->
-            <Collapsible v-for="item in items.filter(i => i.isCollapsible && i.items?.length)" :key="item.title" as-child>
+            <Collapsible v-for="item in items.filter(i => i.isCollapsible && i.items?.length)" :key="item.title" v-model:open="openStates[item.title]" as-child>
                 <SidebarMenuItem>
                     <CollapsibleTrigger as-child>
-                        <SidebarMenuButton :tooltip="item.title"  :is-active="item.href === page.url">
+                        <SidebarMenuButton class="group" :tooltip="item.title"  :is-active="item.href === page.url">
                             <component :is="item.icon" />
                             <span>{{ item.title }}</span>
-                            <ChevronRight class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                            <ChevronRight class="ml-auto transition-transform duration-200 group-data-[state=open]:rotate-90" />
                         </SidebarMenuButton>
                     </CollapsibleTrigger>
                     <CollapsibleContent>
