@@ -4,7 +4,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid, Users, AlarmClock } from 'lucide-vue-next';
+import { LayoutGrid, Users, AlarmClock, FileText } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -25,6 +25,21 @@ const mainNavItems: NavItem[] = [
             {
                 title: 'Empleados',
                 href: '/employees',
+            },
+        ]
+    },
+    {
+        title: 'Facturación',
+        icon: FileText,
+        isCollapsible: true,
+        items: [
+            {
+                title: 'Facturas',
+                href: '/invoices',
+            },
+            {
+                title: 'Boletas',
+                href: '/invoice/boletas',
             },
         ]
     },
