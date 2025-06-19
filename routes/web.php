@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Invoices\InvoiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -11,9 +12,15 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('reminders', function () {
+Route::middleware('auth')->group(function () {
+  Route::get('reminders', function () {
     return Inertia::render('Reminder');
-})->middleware(['auth', 'verified'])->name('reminders');
+  })->name('reminders');
+
+  Route::controller(InvoiceController::class)->group(function () {
+    Route::get('/invoices', 'index')->name('invoices.index');
+  });
+});
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
