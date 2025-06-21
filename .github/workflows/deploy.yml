@@ -29,4 +29,6 @@ jobs:
             php artisan view:clear
             php artisan event:clear
             php artisan optimize:clear
+            php artisan filament:optimize
+            php artisan filament:optimize-clear
             npm run build
