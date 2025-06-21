@@ -28,10 +28,14 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#39afd1',
             ])
+            ->brandName('Flopach')
+            ->brandLogo(asset('images/logo.webp'))
+            ->darkModeBrandLogo(asset('images/logo.webp'))
+            ->favicon(asset('favicon.ico'))
             ->sidebarCollapsibleOnDesktop()
-            ->profile()
+            ->profile() 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
