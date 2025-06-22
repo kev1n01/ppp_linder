@@ -27,7 +27,7 @@ class SettingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-adjustments-vertical';
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'set_name_business';
 
     protected static ?string $modelLabel = 'Setting';
     
@@ -121,6 +121,7 @@ class SettingResource extends Resource
                     ->visibility('private')
                     ->label('Logo')
                     ->image()
+                    ->columnSpan('full')
                   ]);
 
 
