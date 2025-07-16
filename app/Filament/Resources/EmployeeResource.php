@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Http;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Notifications\Notification;
 
 class EmployeeResource extends Resource
 {
@@ -37,16 +40,66 @@ class EmployeeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('emp_num_doc')
-                    ->required(),
-                Forms\Components\DatePicker::make('emp_birthdate'),
-                Forms\Components\TextInput::make('emp_email')
-                    ->email(),
-                Forms\Components\TextInput::make('emp_address'),
-                Forms\Components\Toggle::make('emp_status')
-                    ->required(),
-                Forms\Components\TextInput::make('user_id')
+                    ->label('Nº DNI')
+                    ->unique(ignoreRecord: true)
+                    ->autofocus()
                     ->required()
-                    ->numeric(),
+                    ->maxLength(8)
+                    ->minLength(8)
+                    ->required()
+                    ->suffixAction(
+                      fn ($state, $livewire, $set) => Action::make('search')
+                          ->icon('heroicon-m-magnifying-glass')
+                          ->action(function () use ($state, $livewire, $set) {
+                              $livewire->validateOnly('data.emp_num_doc');
+                              if (blank($state)) {
+                                  Notification::make()
+                                      ->title('El N° de documento no puede estar vacío.')
+                                      ->danger()
+                                      ->send();
+                                  return;
+                              }
+
+                              if (strlen($state) === 8) {
+                                  $response = Http::withOptions([
+                                    'verify' => false,
+                                  ])->get(
+                                      'https://dniruc.apisperu.com/api/v1/dni/' . $state . '?token=' . env('VITE_TOKEN_DNI_API')
+                                  )->throw()->json();
+
+                                  if (!$response['success']) {
+                                      Notification::make()
+                                          ->title($response['message'])
+                                          ->warning()
+                                          ->send();
+                                  }
+
+                                  if ($response['success']) {
+                                      Notification::make()
+                                          ->title('Datos del cliente encontrados.')
+                                          ->success()
+                                          ->send();
+                                      $set('emp_name', $response['nombres'] . ' ' . $response['apellidoPaterno'] . ' ' . $response['apellidoMaterno'] ?? null);
+                                  }
+                              }
+                          })
+                  ),
+                Forms\Components\TextInput::make('emp_name')
+                    ->label('Nombres')
+                    ->disabled()
+                    ->dehydrated(false),
+                Forms\Components\DatePicker::make('emp_birthdate')
+                    ->label('Fecha nacimiento'),
+                Forms\Components\TextInput::make('emp_email')
+                    ->label('Correo electrónico')
+                    ->email(),
+                Forms\Components\TextInput::make('emp_address')
+                    ->label('Dirección'),
+                Forms\Components\Toggle::make('emp_status')
+                    ->label('Estado')
+                    ->default(true)
+                    ->required(),
+                Forms\Components\Hidden::make('user_id'),
             ]);
     }
 
@@ -54,25 +107,35 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Nombres')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('emp_num_doc')
+                    ->label('Nº DNI')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('emp_birthdate')
+                    ->label('Fecha nacimiento')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('emp_email')
+                    ->label('Correo electrónico')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('emp_address')
+                    ->label('Dirección')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('emp_status')
+                    ->label('Estado')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('user_id')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
