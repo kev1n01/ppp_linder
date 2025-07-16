@@ -14,14 +14,14 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         Setting::create([
-          'set_name_business' => 'MECANICA AUTOMOTRIZ FLOPACH',
-          'set_ruc' => '10763703458',
-          'set_phone' => '933865935',
-          'set_province' => 'HUANUCO',
-          'set_department' => 'HUANUCO',
-          'set_district' => 'HUANUCO',
-          'set_ubigeous' => '302941',
-          'set_address' => 'LAS LOMAS MA NA',
+          'set_name_business' => 'GRIFO EL TIBURON 555 EMPRESA INDIVIDUAL DE RESPONSABILIDAD LIMITADA',
+          'set_ruc' => '20573131887',
+          'set_phone' => '999999999',
+          'set_province' => 'DANIEL ALCIDES CARRION',
+          'set_department' => 'PASCO',
+          'set_district' => 'YANAHUANCA',
+          'set_ubigeous' => '190201',
+          'set_address' => 'CAR. CENTRAL KM. 217 CAS. RACRI PASCO DANIEL ALCIDES CARRION YANAHUANCA',
         ]);
     }
 }

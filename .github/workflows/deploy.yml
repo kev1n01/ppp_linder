@@ -15,7 +15,7 @@ jobs:
           key: ${{ secrets.PROD_SSH_KEY }}
           script: |
             php -v
-            cd htdocs/factu.flopach.site
+            cd htdocs/system.tiburon.site
             git reset --hard HEAD
             git pull origin main
             composer install
