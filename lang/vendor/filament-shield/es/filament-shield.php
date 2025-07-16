@@ -64,15 +64,15 @@ return [
     */
 
     'resource_permission_prefixes_labels' => [
-        'view' => 'Ver un registro en particular',
-        'view_any' => 'Ver el listado de registros',
+        'view' => 'Ver',
+        'view_any' => 'Ver todos',
         'create' => 'Crear',
         'update' => 'Actualizar',
-        'delete' => 'Eliminar un registro en particular',
-        'delete_any' => 'Eliminar varios registros a la vez',
-        'force_delete' => 'Forzar elminación de un registro en particular',
-        'force_delete_any' => 'Forzar eliminación de varios registros',
-        'restore' => 'Restaurar un registro en particular',
+        'delete' => 'Eliminar uno',
+        'delete_any' => 'Eliminar cualquier',
+        'force_delete' => 'Forzar elminación',
+        'force_delete_any' => 'Forzar eliminación de varios',
+        'restore' => 'Restaurar un registro',
         'reorder' => 'Reordenar',
         'restore_any' => 'Restaurar varios registros',
         'replicate' => 'Replicar',

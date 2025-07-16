@@ -95,7 +95,8 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+              Tables\Filters\Filter::make('verified')
+              ->query(fn (Builder $query): Builder => $query->whereNotNull('email_verified_at')),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
