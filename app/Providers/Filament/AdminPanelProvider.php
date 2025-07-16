@@ -28,9 +28,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => '#39afd1',
+                'primary' => '#ff0000',
             ])
-            ->brandName('Flopach')
+            ->brandName('TIBURON')
             ->brandLogo(asset('images/logo.webp'))
             ->darkModeBrandLogo(asset('images/logo.webp'))
             ->favicon(asset('favicon.ico'))
