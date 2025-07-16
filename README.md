@@ -6,6 +6,10 @@ Please run this commands to config shield pluging roles:
 php artisan shield:setup
 php artisan shield:install admin
 php artisan shield:generate
+
+**SUPER IMPORANTE ESTE COMANDO PARA GENERAR PERMISOS PARA TODAS LAS ENTIDADES O MODELOS**
+php artisan shield:generate --all
+
 php artisan shield:super-admin
 php artisan shield:seeder
 php artisan shield:publish
