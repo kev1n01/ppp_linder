@@ -48,7 +48,6 @@ class CustomerResource extends Resource
                     ->required()
                     ->maxLength(11)
                     ->minLength(8)
-                    ->required()
                     ->suffixAction(
                       fn ($state, $livewire, $set) => Action::make('search')
                           ->icon('heroicon-m-magnifying-glass')
