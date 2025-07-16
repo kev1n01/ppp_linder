@@ -17,7 +17,20 @@ class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
+
+    protected static ?string $modelLabel = 'Empleado';
+    
+    protected static ?string $pluralModelLabel = 'Empleados';
+
+    protected static ?string $navigationLabel = 'Empleados';  
+
+    protected static ?string $navigationBadgeTooltip = 'Empleados';
+
+    public static function getNavigationBadge(): ?string
+    {
+      return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {

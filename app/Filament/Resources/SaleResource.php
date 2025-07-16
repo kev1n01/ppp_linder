@@ -17,7 +17,20 @@ class SaleResource extends Resource
 {
     protected static ?string $model = Sale::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+
+    protected static ?string $modelLabel = 'Venta';
+    
+    protected static ?string $pluralModelLabel = 'Ventas';
+
+    protected static ?string $navigationLabel = 'Ventas';  
+
+    protected static ?string $navigationBadgeTooltip = 'Ventas';
+
+    public static function getNavigationBadge(): ?string
+    {
+      return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
