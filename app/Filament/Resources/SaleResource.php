@@ -4,10 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SaleResource\Pages;
 use App\Filament\Resources\SaleResource\RelationManagers;
+use App\Models\Employee;
 use App\Models\Sale;
 use App\Models\Service;
 use Filament\Forms;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Tables\Actions\Action as TableAction;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -188,8 +190,22 @@ class SaleResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
-            ])
+              Tables\Filters\SelectFilter::make('sal_payment_method')
+              ->label('Metodo pago')
+              ->options([
+                  'efectivo' => 'Efectivo',
+                  'tarjeta' => 'Tarjeta',
+              ]),
+              Tables\Filters\SelectFilter::make('employee_id')
+              ->label('Empleado')
+              ->searchable()
+              ->options(Employee::all()->pluck('user.name', 'id')) 
+            ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
+            ->filtersTriggerAction(
+              fn (TableAction $action) => $action
+                  ->button()
+                  ->label('Filtros'),
+            )
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
