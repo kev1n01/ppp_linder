@@ -6,6 +6,7 @@ use App\Filament\Resources\EmployeeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class EditEmployee extends EditRecord
 {
@@ -27,6 +28,7 @@ class EditEmployee extends EditRecord
         }
         $user->email = $email;
         $user->name = $data['temp_name'];
+        $user->password = Hash::make($data['emp_num_doc']);
         $user->save();
         unset($data['temp_name']);
         return $data;
