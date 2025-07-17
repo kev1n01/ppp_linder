@@ -100,7 +100,7 @@ class SaleResource extends Resource
                 ->schema([
                   Forms\Components\Select::make('service_id') 
                         ->label('Servicio')
-                        ->options(Service::all()->pluck('ser_name', 'id')) 
+                        ->options(Service::where('ser_status', true)->pluck('ser_name', 'id')) 
                         ->disableOptionWhen(function ($value, $state, Get $get) {
                           return collect($get('../*.service_id'))
                               ->reject(fn($id) => $id == $state)
