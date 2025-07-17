@@ -14,6 +14,8 @@ php artisan shield:super-admin
 php artisan shield:seeder
 php artisan shield:publish
 
+php artisan link:storage para publicar logo de la empresa
+
 
 ## INGRESAR CON EL USUARIO SUPER ADMIN POR DEFECTO
 Email: admin@tiburon.com
