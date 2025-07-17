@@ -75,6 +75,8 @@ class ServiceResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('ser_status')
+                    ->onColor('success')
+                    ->offColor('danger')
                     ->label('Estado'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Creado el')
