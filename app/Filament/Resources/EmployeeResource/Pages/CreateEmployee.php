@@ -17,17 +17,22 @@ class CreateEmployee extends CreateRecord
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        // dd($data);
+        // Tomamos el nombre desde temp_name antes de eliminarlo
+        $nombre = $data['temp_name'];
+
+        
         // Solo crear usuario si no existe un user_id y se proporcionó un email
         if (empty($data['user_id'])) {
             // Crear el usuario
             if(empty($data['emp_email'])){
-              $email = generate_email_from_name($data['emp_name']);
+              $email = generate_email_from_name($nombre);
             }else{
               $email = $data['emp_email'];
             }
 
             $user = User::create([
-                'name' => $data['emp_name'] ?? 'Empleado', // Por si no se recibe
+                'name' => $nombre,
                 'email' => $email,
                 'password' => Hash::make($data['emp_num_doc']),
                 'email_verified_at' => now(), 
@@ -39,6 +44,9 @@ class CreateEmployee extends CreateRecord
             // Asignar el user_id al customer
             $data['user_id'] = $user->id;
         }
+
+        // Eliminamos temp_name del array para que no intente insertarlo en employees
+        unset($data['temp_name']);
 
         return $data;
     }

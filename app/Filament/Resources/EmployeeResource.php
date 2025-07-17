@@ -79,15 +79,16 @@ class EmployeeResource extends Resource
                                           ->title('Datos del cliente encontrados.')
                                           ->success()
                                           ->send();
-                                      $set('emp_name', $response['nombres'] . ' ' . $response['apellidoPaterno'] . ' ' . $response['apellidoMaterno'] ?? null);
+                                      $set('temp_name', $response['nombres'] . ' ' . $response['apellidoPaterno'] . ' ' . $response['apellidoMaterno'] ?? null);
                                   }
                               }
                           })
                   ),
-                Forms\Components\TextInput::make('emp_name')
+                Forms\Components\TextInput::make('temp_name')
                     ->label('Nombres')
+                    ->required()
                     ->disabled()
-                    ->dehydrated(false),
+                    ->dehydrated(true),
                 Forms\Components\DatePicker::make('emp_birthdate')
                     ->label('Fecha nacimiento'),
                 Forms\Components\TextInput::make('emp_email')
@@ -126,9 +127,6 @@ class EmployeeResource extends Resource
                 Tables\Columns\IconColumn::make('emp_status')
                     ->label('Estado')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Creado el')
                     ->dateTime()
