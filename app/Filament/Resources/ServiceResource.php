@@ -17,7 +17,7 @@ class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $modelLabel = 'Servicio';
     
@@ -66,17 +66,23 @@ class ServiceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('ser_name')
+                    ->label('Nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('ser_price')
+                    ->label('Precio')
+                    ->prefix('S/. ')
+                    ->money('PEN')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('ser_status')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('ser_status')
+                    ->label('Estado'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -86,6 +92,8 @@ class ServiceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

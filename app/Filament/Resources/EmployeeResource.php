@@ -20,7 +20,7 @@ class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
+    protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
 
     protected static ?string $modelLabel = 'Empleado';
     
@@ -106,13 +106,14 @@ class EmployeeResource extends Resource
                 Forms\Components\DatePicker::make('emp_birthdate')
                     ->label('Fecha nacimiento'),
                 Forms\Components\TextInput::make('emp_email')
-                    ->label('Correo electrónico')
+                    ->label('Correo electrónico personal')
                     ->email(),
                 Forms\Components\TextInput::make('emp_address')
-                    ->label('Dirección'),
+                    ->label('Dirección domicilio'),
                 Forms\Components\Toggle::make('emp_status')
                     ->label('Estado')
                     ->default(true)
+                    ->inline(false)
                     ->required(),
                 Forms\Components\Hidden::make('user_id'),
             ]);
