@@ -37,7 +37,13 @@ class SaleResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-      return static::getModel()::count();
+      $user = auth()->user();
+
+      if ($user->hasRole('empleado')) {
+        return static::getModel()::where('employee_id', $user->employee->id)->count();
+      }else{
+        return static::getModel()::count();
+      }
     }
 
     public static function updateTotals(Get $get, Set $set): void
@@ -86,6 +92,7 @@ class SaleResource extends Resource
                   // Campo total (solo lectura)
                   Forms\Components\TextInput::make('sal_total_amount')
                       ->label('Total')
+                      ->default('0.00')
                       ->reactive()
                       ->readOnly()
                       ->prefix('S/.')
@@ -173,7 +180,11 @@ class SaleResource extends Resource
                     ->numeric(),
                 Tables\Columns\TextColumn::make('sal_payment_method')
                     ->label('Metodo pago')
-                    ->searchable(), 
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state){
+                      'efectivo' => 'danger',
+                      'tarjeta' => 'sucess',
+                    }), 
                 Tables\Columns\TextColumn::make('sal_date')
                     ->label('Fecha')
                     ->date('d-m-Y')
@@ -207,8 +218,14 @@ class SaleResource extends Resource
                   ->label('Filtros'),
             )
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
+              Tables\Actions\ActionGroup::make([
+                  Tables\Actions\Action::make('ver pdf')
+                  ->icon('heroicon-o-document'),
+                  Tables\Actions\Action::make('descargar')
+                  ->icon('heroicon-o-arrow-down-on-square'),
+                  Tables\Actions\EditAction::make(),
+                  Tables\Actions\ViewAction::make(),
+              ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
