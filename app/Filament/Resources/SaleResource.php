@@ -7,7 +7,10 @@ use App\Filament\Resources\SaleResource\RelationManagers;
 use App\Models\Sale;
 use App\Models\Service;
 use Filament\Forms;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -35,6 +38,23 @@ class SaleResource extends Resource
       return static::getModel()::count();
     }
 
+    public static function updateTotals(Get $get, Set $set): void
+    {
+        // Retrieve all selected products and remove empty rows
+        $selectedServices = collect($get('saleDetails'))->filter(fn($item) => !empty($item['service_id']) && !empty($item['sald_quantity']));
+    
+        // Retrieve prices for all selected products
+        $prices = Service::find($selectedServices->pluck('service_id'))->pluck('ser_price', 'id');
+    
+        // Calculate subtotal based on the selected products and quantities
+        $subtotal = $selectedServices->reduce(function ($subtotal, $service) use ($prices) {
+            return $subtotal + ($prices[$service['service_id']] * $service['sald_quantity']);
+        }, 0);
+    
+        // Update the state with the new values
+        $set('sal_total_amount', number_format($subtotal, 2, '.', ''));
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -46,9 +66,11 @@ class SaleResource extends Resource
                       ->relationship('customer', 'cu_name')
                       ->searchable()
                       ->preload()
-                      ->required(),
+                      ->required()
+                      ->columnSpan(2),
                   Forms\Components\Select::make('sal_payment_method')
                       ->label('Método de pago')
+                      ->default('efectivo')
                       ->options([
                           'efectivo' => 'Efectivo',
                           'tarjeta' => 'Tarjeta',
@@ -56,77 +78,74 @@ class SaleResource extends Resource
                       ->required(),
                   Forms\Components\DatePicker::make('sal_date')
                       ->label('Fecha')
+                      ->default(now())
                       ->required(),
 
                   // Campo total (solo lectura)
                   Forms\Components\TextInput::make('sal_total_amount')
                       ->label('Total')
-                      ->default('0.00')
-                      ->numeric()
-                      ->disabled()
-                      ->dehydrated(),
-              ])->columns(4),
+                      ->reactive()
+                      ->readOnly()
+                      ->prefix('S/.')
+              ])->columns(5),
               
               // Repeater para detalles
               Forms\Components\Section::make('Detalles de la Venta')
               ->schema([
-                Forms\Components\Repeater::make('sale_details')
+                Forms\Components\Repeater::make('saleDetails')
                 ->label('Detalles de la venta')
                 ->relationship() 
                 ->schema([
-                  Forms\Components\Select::make('service_id')
+                  Forms\Components\Select::make('service_id') 
                         ->label('Servicio')
                         ->options(Service::all()->pluck('ser_name', 'id')) 
-                        ->live()
+                        ->disableOptionWhen(function ($value, $state, Get $get) {
+                          return collect($get('../*.service_id'))
+                              ->reject(fn($id) => $id == $state)
+                              ->filter()
+                              ->contains($value);
+                        })
                         ->afterStateUpdated(function ($state, callable $set) {
                             $service = \App\Models\Service::find($state);
                             if ($service) {
                                 $set('sald_price', $service->ser_price);
-                                $set('sald_quantity', 1);
                                 $set('sald_subtotal', $service->ser_price);
                             }
                         })
+                        ->searchable()
+                        ->preload()
                         ->required(),
   
                   Forms\Components\TextInput::make('sald_quantity')
-                        ->numeric()
-                        ->live()
-                        ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                            $price = $get('sald_price') ?? 0;
-                            $quantity = $state ?? 1;
-                            $subtotal = $price * $quantity;
-                            $set('sald_subtotal', $subtotal);
-                          })
+                        ->label('Cantidad')
+                        ->integer()
+                        ->afterStateUpdated(function ($state, callable $set, callable $get){
+                            $set('sald_subtotal', 0);
+                            $set('sald_subtotal', $get('sald_price') * $state);
+                        })
+                        ->default(1)
                         ->required(),
   
                   Forms\Components\TextInput::make('sald_price')
-                        ->numeric()
-                        ->live()
-                        ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                            $price = $state ?? 0;
-                            $quantity = $get('sald_quantity') ?? 1;
-                            $subtotal = $price * $quantity;
-                            $set('sald_subtotal', $subtotal);
-                        })
-                        ->required(),
+                        ->label('Precio')
+                        ->reactive()
+                        ->readOnly(),
   
                   Forms\Components\TextInput::make('sald_subtotal')
-                        ->numeric()
-                        ->disabled()
-                        ->required(),
+                        ->label('Subtotal')
+                        ->reactive()
+                        ->readOnly()
+                        ->prefix('S/.'),
                 ])
                 ->live()
-                ->afterStateUpdated(function ($state, callable $set) {
-                    $total = 0;
-                    if (is_array($state)) {
-                      foreach ($state as $item) {
-                        $total += (float)($item['sald_subtotal'] ?? 0);
-                      }
-                    }
-                    // dd($total);
-                    $set('sal_total_amount', number_format($total, 2, '.', ''));
+                ->afterStateUpdated(function (Get $get, Set $set) {
+                    self::updateTotals($get, $set);
                 })
+                ->deleteAction(
+                  fn(Action $action) => $action->after(fn(Get $get, Set $set) => self::updateTotals($get, $set)),
+                )
                 ->addActionLabel('Agregar')
+                ->reorderable(false)
                 ->columns(4),
               ])
             ]);
@@ -136,25 +155,32 @@ class SaleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('customer.cu_name')
+                    ->label('Cliente')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('employee_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('employee.user.name')
+                    ->label('Empleado')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sal_total_amount')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Total')
+                    ->prefix('S/. ')
+                    ->money('PEN')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('sal_payment_method')
+                    ->label('Metodo pago')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('sal_date')
-                    ->date()
+                    ->label('Fecha')
+                    ->date('d-m-Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
