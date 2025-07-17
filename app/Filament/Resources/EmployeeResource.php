@@ -86,9 +86,21 @@ class EmployeeResource extends Resource
                   ),
                 Forms\Components\TextInput::make('temp_name')
                     ->label('Nombres')
-                    ->required()
+                    ->required(fn ($record) => $record === null)
                     ->disabled()
+                    ->placeholder('Nombre encontrado')
+                    ->visible(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord)
                     ->dehydrated(true),
+                Forms\Components\TextInput::make('temp_name')
+                    ->label('Nombres')
+                    ->afterStateHydrated(function ($component, $state, $record) {
+                      if ($record && $record->user) {
+                        $component->state($record->user->name);
+                      }
+                    })
+                    ->disabled()
+                    ->visible(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
+                    ->dehydrated(true), 
                 Forms\Components\DatePicker::make('emp_birthdate')
                     ->label('Fecha nacimiento'),
                 Forms\Components\TextInput::make('emp_email')
@@ -116,13 +128,16 @@ class EmployeeResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('emp_birthdate')
                     ->label('Fecha nacimiento')
-                    ->date()
+                    ->date('d-m-Y')
+                    ->placeholder('DD-MM-YYYY')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('emp_email')
                     ->label('Correo electrónico')
+                    ->default('N/A')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('emp_address')
                     ->label('Dirección')
+                    ->default('N/A')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('emp_status')
                     ->label('Estado')
@@ -142,11 +157,13 @@ class EmployeeResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

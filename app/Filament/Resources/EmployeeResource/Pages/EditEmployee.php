@@ -5,6 +5,7 @@ namespace App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use App\Models\User;
 
 class EditEmployee extends EditRecord
 {
@@ -15,5 +16,19 @@ class EditEmployee extends EditRecord
         return [
             Actions\DeleteAction::make(),
         ];
+    }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        // dd($user);
+        $user = User::find($data['user_id']);
+        if($user->name !== $data['temp_name']){
+          $email = generate_email_from_name($data['temp_name']);
+        }
+        $user->email = $email;
+        $user->name = $data['temp_name'];
+        $user->save();
+        unset($data['temp_name']);
+        return $data;
     }
 }
