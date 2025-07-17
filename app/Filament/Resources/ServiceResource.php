@@ -105,8 +105,8 @@ class ServiceResource extends Resource
     {
         return [
             'index' => Pages\ListServices::route('/'),
-            'create' => Pages\CreateService::route('/create'),
-            'edit' => Pages\EditService::route('/{record}/edit'),
+            // 'create' => Pages\CreateService::route('/create'),
+            // 'edit' => Pages\EditService::route('/{record}/edit'),
         ];
     }
 }
