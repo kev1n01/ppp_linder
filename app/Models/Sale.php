@@ -24,7 +24,7 @@ class Sale extends Model
         return $this->belongsTo(Employee::class);
     }
     
-    public function saledetail()
+    public function sale_details()
     {
         return $this->hasMany(SaleDetail::class);
     }
