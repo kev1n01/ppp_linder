@@ -157,10 +157,12 @@ class SaleResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('customer.cu_name')
                     ->label('Cliente')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('employee.user.name')
                     ->label('Empleado')
                     ->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('sal_total_amount')
                     ->label('Total')
@@ -169,7 +171,7 @@ class SaleResource extends Resource
                     ->numeric(),
                 Tables\Columns\TextColumn::make('sal_payment_method')
                     ->label('Metodo pago')
-                    ->searchable(),
+                    ->searchable(), 
                 Tables\Columns\TextColumn::make('sal_date')
                     ->label('Fecha')
                     ->date('d-m-Y')
