@@ -138,9 +138,11 @@ class MethodPayAccountResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('mpa_cc_numer')
                     ->label('Nº CC')
+                    ->placeholder('N/A')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('mpa_cci_numer')
                     ->label('Nº CCI')
+                    ->placeholder('N/A')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('mpa_phone_num')
                     ->label('Nº celular')
