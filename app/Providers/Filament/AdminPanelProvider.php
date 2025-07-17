@@ -30,9 +30,9 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#ff0000',
             ])
-            ->brandName('TIBURON')
-            ->brandLogo(asset('images/logo.webp'))
-            ->darkModeBrandLogo(asset('images/logo.webp'))
+            ->brandName('Grifo TIBURON')
+            // ->brandLogo(asset('images/logo.webp'))
+            // ->darkModeBrandLogo(asset('images/logo.webp'))
             ->favicon(asset('favicon.ico'))
             ->sidebarCollapsibleOnDesktop()
             ->profile() 
