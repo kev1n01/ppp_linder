@@ -30,6 +30,8 @@ class EmployeeResource extends Resource
 
     protected static ?string $navigationBadgeTooltip = 'Empleados';
 
+    protected static ?int $navigationSort = 2;
+
     public static function getNavigationBadge(): ?string
     {
       return static::getModel()::count();

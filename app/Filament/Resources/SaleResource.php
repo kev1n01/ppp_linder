@@ -27,6 +27,8 @@ class SaleResource extends Resource
 
     protected static ?string $navigationBadgeTooltip = 'Ventas';
 
+    protected static ?int $navigationSort = 4;
+
     public static function getNavigationBadge(): ?string
     {
       return static::getModel()::count();

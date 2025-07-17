@@ -31,6 +31,8 @@ class CustomerResource extends Resource
     protected static ?string $navigationLabel = 'Clientes';  
 
     protected static ?string $navigationBadgeTooltip = 'Clientes';
+    
+    protected static ?int $navigationSort = 1;
 
     public static function getNavigationBadge(): ?string
     {
