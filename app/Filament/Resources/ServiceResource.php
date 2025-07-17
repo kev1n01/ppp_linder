@@ -27,6 +27,8 @@ class ServiceResource extends Resource
 
     protected static ?string $navigationBadgeTooltip = 'Servicios';
 
+    protected static ?int $navigationSort = 3;
+
     public static function getNavigationBadge(): ?string
     {
       return static::getModel()::count();
@@ -36,15 +38,26 @@ class ServiceResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('ser_name')
-                    ->required(),
-                Forms\Components\Textarea::make('ser_description')
+                Forms\Components\Grid::make(3)
+                  ->schema([
+                    Forms\Components\TextInput::make('ser_name')
+                        ->label('Nombre de servicio')
+                        ->autofocus()
+                        ->required(),
+                    Forms\Components\TextInput::make('ser_price')
+                        ->label('Precio')
+                        ->required()
+                        ->prefix('S/.')
+                        ->numeric(),
+                    Forms\Components\Toggle::make('ser_status')
+                        ->label('Estado')
+                        ->inline(false)
+                        ->default(true)
+                        ->required(),
+                  ]),
+                Forms\Components\RichEditor::make('ser_description')
+                    ->label('Descripción')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('ser_price')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Toggle::make('ser_status')
-                    ->required(),
             ]);
     }
 
