@@ -12,16 +12,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+      $this->command->call('shield:generate', [
+        '--all' => true,
+      ]);
+
       $this->call([
-          RoleSeeder::class,
           ShieldSeeder::class,
+          RoleSeeder::class,
           UserSeeder::class,
           SettingSeeder::class,
+          ServiceSeeder::class,
       ]);
       
-      $this->command->call('shield:generate', [
-          '--all' => true,
-      ]);
       $this->command->call('shield:super-admin');
     }
 }
