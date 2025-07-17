@@ -15,6 +15,10 @@ php artisan shield:seeder
 php artisan shield:publish
 
 
+## INGRESAR CON EL USUARIO SUPER ADMIN POR DEFECTO
+Email: admin@tiburon.com
+Password: admintiburon
+
 ## PASOS PARA CONSEGUIR TU TOKEN DE APIS PERU
 
 1. Ir a esta pagina https://apisperu.com/servicios/dniruc y registrate
