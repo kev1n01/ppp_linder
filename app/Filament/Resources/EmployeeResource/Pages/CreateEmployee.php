@@ -17,7 +17,6 @@ class CreateEmployee extends CreateRecord
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        // dd($data);
         // Tomamos el nombre desde temp_name antes de eliminarlo
         $nombre = $data['temp_name'];
 

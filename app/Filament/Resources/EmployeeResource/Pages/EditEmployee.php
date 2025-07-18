@@ -21,7 +21,6 @@ class EditEmployee extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        // dd($user);
         $user = User::find($data['user_id']);
         if($user->name !== $data['temp_name']){
           $email = generate_email_from_name($data['temp_name']);
