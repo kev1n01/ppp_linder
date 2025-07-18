@@ -1,10 +1,10 @@
 ## Requerimientos
 Tener instalado:
-Laravel 12
-Php +8.3 => verifica con php -v
-Composer 2.8.8 => verifica con composer --version
-Node v. 22 => verifica con node -v
-Npm v 10.9.2 => verifica con npm -v
+- Laravel 12
+- Php +8.3 => verifica con php -v
+- Composer 2.8.8 => verifica con composer --version
+- Node v. 22 => verifica con node -v
+- Npm v 10.9.2 => verifica con npm -v
 
 ## Instalacion
 - Paquetes y librerias:
@@ -51,7 +51,9 @@ ingresar a tu php.ini, busca la extension "pdo_sqlite", elimina el " ; ", y guar
 
 ## Pasos para visualizar tu base de datos
 1. Instalar la extension ERD EDITOR 
+
 ![alt text](image-1.png)
+
 2. Abre el archivo db_tiburon.erd.json y veras tus tablas y sus datos:
 ![alt text](image-2.png)
 
@@ -79,22 +81,21 @@ ingresar a tu php.ini, busca la extension "pdo_sqlite", elimina el " ; ", y guar
 ![alt text](image-3.png)
 
 - Al correr las migraciones se crearan los siguiente usuarios para iniciar las pruebas:
-
-**Cuenta super admin:**
-  ``` sh
-  email: admin@tiburon.com
-  pass: admintiburon
-  ```
-**Cuenta empleado:**
-  ``` sh
-  email: empleado1@tiburon.com
-  pass: empleado1
-  ```
-**Cuenta cliente:**
-  ``` sh
-  email: rosmel@tiburon.com
-  pass: cliente1
-  ```
+  **Cuenta super admin:**
+    ``` sh
+    email: admin@tiburon.com
+    pass: admintiburon
+    ```
+  **Cuenta empleado:**
+    ``` sh
+    email: empleado1@tiburon.com
+    pass: empleado1
+    ```
+  **Cuenta cliente:**
+    ``` sh
+    email: rosmel@tiburon.com
+    pass: cliente1
+    ```
 4. Levanta el servidor con:
  ``` sh
   composer run dev
@@ -108,4 +109,5 @@ ingresar a tu php.ini, busca la extension "pdo_sqlite", elimina el " ; ", y guar
 ### RECURSOS PARA INFORME
 
 En la carpeta /recursos dejo todo lo necesario imagenes pdf, .sql
+
 ![alt text](image-4.png)
