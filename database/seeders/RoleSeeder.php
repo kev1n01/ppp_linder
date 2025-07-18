@@ -25,10 +25,10 @@ class RoleSeeder extends Seeder
           'view_item',
         ]);
 
-        $roleCustomer->givePermissionTo([
-          'view_any_item',
-          'view_item',
-        ]);
+        // $roleCustomer->givePermissionTo([
+          // 'view_any_item',
+          // 'view_item',
+        // ]);
 
     }
 }
