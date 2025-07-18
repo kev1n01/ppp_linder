@@ -21,7 +21,6 @@ class ListItemsCustomerComponent extends Component
 
     public function render()
     {
-        sleep(0.3);
         $query = Item::where('ite_status', true);
 
         if ($this->selectedType) {

@@ -11,11 +11,11 @@ class ListItemsCustomer extends Page
 
     protected static string $view = 'filament.pages.list-items-customer';
 
-    protected static ?string $navigationLabel = 'Items';  
+    protected static ?string $navigationLabel = 'Productos y servicios';  
 
     protected static ?string $title = ''; 
     
-    protected static ?string $slug = 'items-grifo';
+    protected static ?string $slug = 'productos-y-servicio';
 
     public static function canAccess(): bool
     {
