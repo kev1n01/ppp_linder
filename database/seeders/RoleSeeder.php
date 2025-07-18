@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
         $roleEmployee->givePermissionTo([
           'view_any_sale',
           'view_sale',
+          'create_sale',
           'view_any_service',
           'view_service',
         ]);
