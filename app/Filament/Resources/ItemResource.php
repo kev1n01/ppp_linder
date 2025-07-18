@@ -21,13 +21,13 @@ class ItemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $modelLabel = 'Servicio';
+    protected static ?string $modelLabel = 'Item';
     
-    protected static ?string $pluralModelLabel = 'Servicios';
+    protected static ?string $pluralModelLabel = 'Items';
 
-    protected static ?string $navigationLabel = 'Servicios';  
+    protected static ?string $navigationLabel = 'Items';  
 
-    protected static ?string $navigationBadgeTooltip = 'Servicios';
+    protected static ?string $navigationBadgeTooltip = 'Items';
 
     protected static ?int $navigationSort = 3;
 
@@ -90,6 +90,16 @@ class ItemResource extends Resource
                 Tables\Columns\ToggleColumn::make('ite_status')
                     ->onColor('success')
                     ->label('Estado'),
+                Tables\Columns\IconColumn::make('ite_type')
+                    ->label('Tipo')
+                    ->icon(fn (string $state): string => match ($state) {
+                      'producto' => 'heroicon-o-bolt',
+                      'servicio' => 'heroicon-o-wrench',
+                    })
+                    ->color(fn (string $state): string => match ($state){
+                      'producto' => 'warning',
+                      'servicio' => 'secondary',
+                    }), 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Creado el')
                     ->dateTime()
