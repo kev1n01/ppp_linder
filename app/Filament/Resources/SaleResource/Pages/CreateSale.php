@@ -6,6 +6,7 @@ use App\Filament\Resources\SaleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Str;
 
 class CreateSale extends CreateRecord
 {
@@ -23,6 +24,7 @@ class CreateSale extends CreateRecord
           $this->halt(); 
         }
         $data['employee_id'] = auth()->user()->employee->id;
+        $data['uuid'] = Str::uuid();
         $data['customer_id'] = intval($data['customer_id']);
         return $data;
     }

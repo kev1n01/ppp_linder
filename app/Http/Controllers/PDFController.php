@@ -21,7 +21,7 @@ class PDFController extends Controller
     {
       $infoBusiness = Setting::first();
       return Pdf::view('pdf.venta', ['sale' => $sale, 'infoBusiness' => $infoBusiness])
-        ->name('venta_'. $sale->customer->cu_name . '_' . $sale->id .'.pdf')
+        ->name('venta_' . strtoupper(explode('-', $sale->uuid)[0]) .'.pdf')
         ->format(Format::A4)
         ->download();
     }

@@ -69,6 +69,7 @@ class SaleResource extends Resource
               Forms\Components\Section::make('Información de la Venta')
               ->schema([
                   Forms\Components\Hidden::make('employee_id'),
+                  Forms\Components\Hidden::make('uuid'),
                   Forms\Components\Select::make('customer_id')  
                       ->label('Cliente')
                       ->options(Customer::where('cu_status', true)->pluck('cu_name', 'id')) 
@@ -182,6 +183,10 @@ class SaleResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('uuid')
+                  ->label('Codigo')
+                  ->formatStateUsing(fn ($state): string => getCodFromUUID($state))
+                  ->searchable(),
                 Tables\Columns\TextColumn::make('customer.cu_name')
                   ->label('Cliente')
                   ->searchable()

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sale extends Model
 {
     protected $fillable = [
+      'uuid',
       'customer_id',
       'employee_id',
       'sal_total_amount',
@@ -14,6 +15,12 @@ class Sale extends Model
       'sal_date'
     ];
     
+    // Para cambiar el campo del binding de un record al hacer Sale $sale 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

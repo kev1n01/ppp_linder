@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Detalle de Venta - {{ $sale->customer->cu_name }} - {{ $sale->id}}</title>
+  <title>Detalle de Venta - {{ $sale->customer->cu_name }} - {{ getCodFromUUID($sale->uuid) }}</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800 p-6">
@@ -30,7 +30,7 @@
     <section class="bg-white p-4 rounded-2xl shadow mb-3">
         <h2 class="text-lg font-bold mb-2 border-b-2">Detalles de la venta</h2>
         <div class="grid grid-cols-2 gap-4 text-sm">
-            <p><span class="font-semibold">Código de venta:</span> #{{ $sale->id }}</p>
+            <p><span class="font-semibold">Codigo:</span> {{ getCodFromUUID($sale->uuid) }}</p>
             <p><span class="font-semibold">Fecha:</span> {{ \Carbon\Carbon::parse($sale->sal_date)->format('d/m/Y') }}</p>
             <p><span class="font-semibold">Método de pago:</span> {{ ucfirst($sale->sal_payment_method) }}</p>
             <p><span class="font-semibold">Atendido por:</span>  {{ $sale->employee->user->name }}</p>
@@ -42,7 +42,7 @@
         <h2 class="text-lg font-bold mb-2 border-b-2">Datos del cliente</h2>
         <div class="text-sm grid grid-cols-2 gap-4">
             <p><span class="font-semibold">Nombre:</span> {{ $sale->customer->cu_name }}</p>
-            <p><span class="font-semibold">DNI:</span> {{ $sale->customer->cu_num_doc }}</p>
+            <p><span class="font-semibold">DNI/RUC:</span> {{ $sale->customer->cu_num_doc }}</p>
             <p><span class="font-semibold">Correo:</span> {{ $sale->customer->cu_email ?? 'No registrado' }}</p>
             <p><span class="font-semibold">Teléfono:</span> {{ $sale->customer->cu_phone ?? 'No registrado' }}</p>
         </div>

@@ -8,3 +8,7 @@ function generate_email_from_name(string $fullName): string
 
     return "{$firstName}.{$randomPart}@tiburon.com";
 }
+
+function getCodFromUUID(string $uuid): string{
+  return strtoupper(explode('-', $uuid)[0]);
+}
