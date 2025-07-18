@@ -203,7 +203,22 @@ class SaleResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                  Tables\Actions\Action::make('ver pdf')
+                  ->icon('heroicon-o-document')
+                  ->url(
+                    fn($record): string => route('ver.pdf.venta', $record),
+                    shouldOpenInNewTab: true
+                  ),
+                  Tables\Actions\Action::make('descargar')
+                  ->icon('heroicon-o-arrow-down-on-square')
+                  ->url(
+                    fn($record): string => route('download.pdf.venta', $record),
+                    shouldOpenInNewTab: true
+                  ),
+                  Tables\Actions\EditAction::make(),
+                  Tables\Actions\ViewAction::make(),
+              ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
