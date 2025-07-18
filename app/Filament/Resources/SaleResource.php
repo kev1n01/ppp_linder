@@ -83,6 +83,11 @@ class SaleResource extends Resource
                           'efectivo' => 'Efectivo',
                           'tarjeta' => 'Tarjeta',
                       ])
+                      ->columnSpan([
+                        'default' => 'full',
+                        'sm' => 1,
+                        '2xl' => 1,
+                      ])
                       ->required(),
                   Forms\Components\DatePicker::make('sal_date')
                       ->label('Fecha')
@@ -98,8 +103,18 @@ class SaleResource extends Resource
                       ->default('0.00')
                       ->reactive()
                       ->readOnly()
+                      ->columnSpan([
+                        'default' => '2',
+                        'sm' => 2,
+                        '2xl' => 1,
+                      ])
                       ->prefix('S/.')
-              ])->columns(5),
+              ])->columns([
+                'default' => 'full',
+                'sm' => 1,
+                'lg' => 5,
+                '2xl' => 5,
+              ]),
               
               // Repeater para detalles
               Forms\Components\Section::make('Detalles de la Venta')
