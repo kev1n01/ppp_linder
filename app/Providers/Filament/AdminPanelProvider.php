@@ -79,7 +79,7 @@ class AdminPanelProvider extends PanelProvider
                     'sm' => 2,
                 ]),
               \Hasnayeen\Themes\ThemesPlugin::make()
-                ->canViewThemesPage(fn () => auth()->user()?->email === 'test@example.com')
+                ->canViewThemesPage(fn () => auth()->user()?->email === 'admin@tiburon.com')
             ]);
     }
 }
