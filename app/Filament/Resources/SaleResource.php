@@ -201,22 +201,28 @@ class SaleResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-              Tables\Filters\SelectFilter::make('sal_payment_method')
-              ->label('Metodo pago')
-              ->options([
-                  'efectivo' => 'Efectivo',
-                  'tarjeta' => 'Tarjeta',
-              ]),
-              Tables\Filters\SelectFilter::make('employee_id')
-              ->label('Empleado')
-              ->searchable()
-              ->options(Employee::all()->pluck('user.name', 'id')) 
+              // Tables\Filters\SelectFilter::make('sal_payment_method')
+              // ->label('Metodo pago')
+              // ->options([
+              //     'efectivo' => 'Efectivo',
+              //     'tarjeta' => 'Tarjeta',
+              // ]),
+              // Tables\Filters\SelectFilter::make('employee_id')
+              // ->label('Empleado')
+              // ->searchable()
+              // ->options(function () {
+              //   return \App\Models\Employee::with('user')
+              //       ->where('emp_status', 1)
+              //       ->get()
+              //       ->mapWithKeys(fn ($emp) => [$emp->id => $emp->user?->name ?? "Empleado #{$emp->id}"])
+              //       ->toArray();
+              // })
             ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
-            ->filtersTriggerAction(
-              fn (TableAction $action) => $action
-                  ->button()
-                  ->label('Filtros'),
-            )
+            // ->filtersTriggerAction(
+            //   fn (TableAction $action) => $action
+            //       ->button()
+            //       ->label('Filtros'),
+            // )
             ->actions([
               Tables\Actions\ActionGroup::make([
                   Tables\Actions\Action::make('ver pdf')
