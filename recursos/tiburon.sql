@@ -1,8 +1,8 @@
 
 CREATE TABLE customers
 (
-  id                  NOT NULL,
-  user_id             NOT NULL,
+  id          BIGINT  NOT NULL,
+  user_id     BIGINT  NOT NULL,
   cu_name     varchar NOT NULL,
   cu_num_doc  varchar NOT NULL,
   cu_type_doc varchar NULL     COMMENT 'dni, ruc',
@@ -15,8 +15,8 @@ CREATE TABLE customers
 
 CREATE TABLE employees
 (
-  id                    NOT NULL,
-  user_id               NOT NULL,
+  id            BIGINT  NOT NULL,
+  user_id       BIGINT  NOT NULL,
   emp_num_doc   varchar NOT NULL,
   emp_email     varchar NULL    ,
   emp_address   varchar NULL    ,
@@ -27,7 +27,7 @@ CREATE TABLE employees
 
 CREATE TABLE items
 (
-  id                      NOT NULL,
+  id              BIGINT  NOT NULL,
   ite_name        varchar NOT NULL,
   ite_description text    NULL    ,
   ite_price       numeric NOT NULL,
@@ -39,49 +39,49 @@ CREATE TABLE items
 
 CREATE TABLE method_pay_accounts
 (
-  id             NOT NULL,
-  mpa_name       NOT NULL,
-  mpa_cc_numer   NULL    ,
-  mpa_cci_numer  NULL    ,
-  mpa_phone_num  NULL    ,
-  mpa_type       NOT NULL COMMENT 'digital, bancario',
+  id            BIGINT  NOT NULL,
+  mpa_name      varchar NOT NULL,
+  mpa_cc_numer  varchar NULL    ,
+  mpa_cci_numer varchar NULL    ,
+  mpa_phone_num varchar NULL    ,
+  mpa_type      varchar NOT NULL COMMENT 'digital, bancario',
   PRIMARY KEY (id)
 );
 
 CREATE TABLE model_has_roles
 (
-  role_id     NOT NULL,
-  model_type  NOT NULL,
-  model_id    NOT NULL
+  role_id    BIGINT NOT NULL,
+  model_type        NOT NULL,
+  model_id   BIGINT NOT NULL
 );
 
 CREATE TABLE permissions
 (
-  id          NOT NULL,
-  name        NOT NULL,
-  guard_name  NOT NULL,
+  id         BIGINT  NOT NULL,
+  name       varchar NOT NULL,
+  guard_name varchar NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE role_has_permissions
 (
-  role_id        NOT NULL,
-  permission_id  NOT NULL
+  role_id       BIGINT NOT NULL,
+  permission_id BIGINT NOT NULL
 );
 
 CREATE TABLE roles
 (
-  id          NOT NULL,
-  name        NOT NULL,
-  guard_name  NOT NULL,
+  id         BIGINT  NOT NULL,
+  name       varchar NOT NULL,
+  guard_name varchar NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE sale
 (
-  id                         NOT NULL,
-  customer_id                NOT NULL,
-  employee_id                NOT NULL,
+  id                 BIGINT  NOT NULL,
+  customer_id        BIGINT  NOT NULL,
+  employee_id        BIGINT  NOT NULL,
   sal_total_amount   numeric NOT NULL,
   sal_payment_method varchar NOT NULL COMMENT 'efectivo o tarjeta',
   sal_date           date    NOT NULL,
@@ -90,9 +90,9 @@ CREATE TABLE sale
 
 CREATE TABLE sale_details
 (
-  id                    NOT NULL,
-  item_id               NOT NULL,
-  sale_id               NOT NULL,
+  id            BIGINT  NOT NULL,
+  item_id       BIGINT  NOT NULL,
+  sale_id       BIGINT  NOT NULL,
   sald_quantity integer NOT NULL,
   sald_price    numeric NOT NULL,
   sald_subtotal numeric NOT NULL,
@@ -101,26 +101,26 @@ CREATE TABLE sale_details
 
 CREATE TABLE settings
 (
-  id                 NOT NULL,
-  set_name_business  NOT NULL,
-  set_ruc            NOT NULL,
-  set_province       NOT NULL,
-  set_phone          NOT NULL,
-  set_department     NOT NULL,
-  set_district       NOT NULL,
-  set_ubigeous       NOT NULL,
-  set_address        NOT NULL,
-  set_logo           NULL    ,
+  id                BIGINT  NOT NULL,
+  set_name_business varchar NOT NULL,
+  set_ruc           varchar NOT NULL,
+  set_province      varchar NOT NULL,
+  set_phone         varchar NOT NULL,
+  set_department    varchar NOT NULL,
+  set_district      varchar NOT NULL,
+  set_ubigeous      varchar NOT NULL,
+  set_address       varchar NOT NULL,
+  set_logo          varchar NULL    ,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE users
 (
-  id                 NOT NULL,
-  name               NOT NULL,
-  email              NOT NULL,
-  email_verified_at  NULL    ,
-  password           NULL    ,
+  id                BIGINT  NOT NULL,
+  name              varchar NOT NULL,
+  email             varchar NOT NULL,
+  email_verified_at date    NULL    ,
+  password          varchar NULL    ,
   PRIMARY KEY (id)
 );
 

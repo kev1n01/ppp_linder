@@ -104,3 +104,8 @@ ingresar a tu php.ini, busca la extension "pdo_sqlite", elimina el " ; ", y guar
  ``` sh
   http://127.0.0.1:8000
 ```
+
+### RECURSOS PARA INFORME
+
+En la carpeta /recursos dejo todo lo necesario imagenes pdf, .sql
+![alt text](image-4.png)
