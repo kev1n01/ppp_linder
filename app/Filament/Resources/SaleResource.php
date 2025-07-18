@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SaleResource\Pages;
 use App\Filament\Resources\SaleResource\RelationManagers;
+use App\Models\Customer;
 use App\Models\Item;
 use App\Models\Sale;
 use Filament\Forms;
@@ -70,7 +71,7 @@ class SaleResource extends Resource
                   Forms\Components\Hidden::make('employee_id'),
                   Forms\Components\Select::make('customer_id')  
                       ->label('Cliente')
-                      ->relationship('customer', 'cu_name')
+                      ->options(Customer::where('cu_status', true)->pluck('cu_name', 'id')) 
                       ->searchable()
                       ->preload()
                       ->required()
@@ -85,6 +86,9 @@ class SaleResource extends Resource
                       ->required(),
                   Forms\Components\DatePicker::make('sal_date')
                       ->label('Fecha')
+                      ->placeholder('DD-MM-YYYY')
+                      ->native(false)
+                      ->displayFormat('d-m-Y')
                       ->default(now())
                       ->required(),
 
@@ -129,7 +133,7 @@ class SaleResource extends Resource
                         ->integer()
                         ->afterStateUpdated(function ($state, callable $set, callable $get){
                             $set('sald_subtotal', 0);
-                            $set('sald_subtotal', $get('sald_price') * $state);
+                            $set('sald_subtotal', number_format($get('sald_price') * $state, 2, '.', ''));
                         })
                         ->default(1)
                         ->required(),

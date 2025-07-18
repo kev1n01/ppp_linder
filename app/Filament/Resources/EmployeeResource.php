@@ -101,6 +101,9 @@ class EmployeeResource extends Resource
                   ->visible(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\EditRecord)
                   ->dehydrated(true), 
               Forms\Components\DatePicker::make('emp_birthdate')
+                  ->placeholder('DD-MM-YYYY')
+                  ->native(false)
+                  ->displayFormat('d-m-Y')
                   ->label('Fecha nacimiento'),
               Forms\Components\TextInput::make('emp_email')
                   ->label('Correo electrónico personal')
