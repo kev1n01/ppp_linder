@@ -30,21 +30,21 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#ff0000',
             ])
-            ->brandName('TIBURON')
-            ->brandLogo(asset('images/logo.webp'))
-            ->darkModeBrandLogo(asset('images/logo.webp'))
-            ->favicon(asset('favicon.ico'))
+            ->brandName('GRIFO TIBURON')
+            // ->brandLogo(asset('images/logo.webp'))
+            // ->darkModeBrandLogo(asset('images/logo.webp'))
+            // ->favicon(asset('favicon.ico'))
             ->sidebarCollapsibleOnDesktop()
             ->profile() 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                // Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
