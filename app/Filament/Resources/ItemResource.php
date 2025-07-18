@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
+use Filament\Tables\Actions\EditAction;
 
 class ItemResource extends Resource
 {
@@ -65,7 +67,9 @@ class ItemResource extends Resource
                 Forms\Components\RichEditor::make('ite_description')
                     ->label('Descripción'),
                 Forms\Components\FileUpload::make('ite_image')
-                    ->label('Image')
+                    ->label('Imagen')
+                    ->directory('items')
+                    ->visibility('private')
                     ->image(),
             ]);
     }
@@ -101,7 +105,14 @@ class ItemResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->before(function (EditAction $action, Item $record) {
+                  if($record->ite_image){
+                    if (Storage::disk('public')->exists($record->ite_image)) {
+                        Storage::disk('public')->delete($record->ite_image);
+                    }
+                  }
+                }),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ViewAction::make(),
             ])
