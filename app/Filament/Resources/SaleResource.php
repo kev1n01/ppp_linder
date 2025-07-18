@@ -240,6 +240,9 @@ class SaleResource extends Resource
                     fn($record): string => route('download.pdf.venta', $record),
                     shouldOpenInNewTab: true
                   ),
+                  // Tables\Actions\Action::make('pdf vista')
+                  // ->icon('heroicon-o-document')
+                  // ->url(fn($record) => self::getUrl("pdf", [ 'record' => $record])),
                   Tables\Actions\EditAction::make(),
                   Tables\Actions\ViewAction::make(),
               ])
@@ -264,6 +267,7 @@ class SaleResource extends Resource
             'index' => Pages\ListSales::route('/'),
             'create' => Pages\CreateSale::route('/create'),
             'edit' => Pages\EditSale::route('/{record}/edit'),
+            // 'pdf' => Pages\PdfViewSale::route('/view/{record}/pdf')
         ];
     }
 }
