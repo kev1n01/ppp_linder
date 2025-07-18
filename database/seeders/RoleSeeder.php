@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
           'view_any_sale',
           'view_sale',
           'create_sale',
+          'update_sale',
           'view_any_item',
           'view_item',
         ]);
