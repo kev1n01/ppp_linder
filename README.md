@@ -5,8 +5,16 @@ Tener instalado:
 - Composer 2.8.8 => verifica con composer --version
 - Node v. 22 => verifica con node -v
 - Npm v 10.9.2 => verifica con npm -v
+- Git
+- Cuenta de github XD
 
 ## Instalacion
+- Clonar proyecto:
+``` bash 
+  git clone https://github.com/kev1n01/ppp_linder.git
+  cd ppp_linder
+```
+
 - Paquetes y librerias:
 ``` bash 
   composer install; npm install; npm run build
