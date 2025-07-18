@@ -19,22 +19,53 @@ class ItemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $modelLabel = 'Servicio';
+    
+    protected static ?string $pluralModelLabel = 'Servicios';
+
+    protected static ?string $navigationLabel = 'Servicios';  
+
+    protected static ?string $navigationBadgeTooltip = 'Servicios';
+
+    protected static ?int $navigationSort = 3;
+
+    public static function getNavigationBadge(): ?string
+    {
+      return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('ite_name')
-                    ->required(),
-                Forms\Components\Textarea::make('ite_description')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('ite_price')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Toggle::make('ite_status')
-                    ->required(),
-                Forms\Components\TextInput::make('ite_type')
-                    ->required(),
+                Forms\Components\Grid::make(4)
+                ->schema([
+                  Forms\Components\TextInput::make('ite_name')
+                      ->label('Nombre')
+                      ->autofocus()
+                      ->required(),
+                  Forms\Components\TextInput::make('ite_price')
+                      ->label('Precio')
+                      ->required()
+                      ->prefix('S/.')
+                      ->numeric(),
+                  Forms\Components\Select::make('ite_type')
+                      ->label('Tipo')
+                      ->options([
+                        'producto' => 'Producto',
+                        'servicio' => 'Servicio',
+                      ])
+                      ->required(),
+                  Forms\Components\Toggle::make('ite_status')
+                      ->label('Estado')
+                      ->inline(false)
+                      ->default(true)
+                      ->required(),
+                ]),
+                Forms\Components\RichEditor::make('ite_description')
+                    ->label('Descripción'),
                 Forms\Components\FileUpload::make('ite_image')
+                    ->label('Image')
                     ->image(),
             ]);
     }
@@ -44,20 +75,24 @@ class ItemResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('ite_name')
-                    ->searchable(),
+                ->label('Nombre')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('ite_price')
+                    ->label('Precio')
+                    ->prefix('S/. ')
+                    ->money('PEN')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('ite_status')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('ite_type')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('ite_image'),
+                Tables\Columns\ToggleColumn::make('ite_status')
+                    ->onColor('success')
+                    ->label('Estado'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -67,6 +102,8 @@ class ItemResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
