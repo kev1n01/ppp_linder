@@ -79,9 +79,18 @@ class ItemResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('ite_image')
+                ->label('Image')
+                ->circular()
+                ->defaultImageUrl(url('images/no-image.jpg'))
+                ->extraImgAttributes(fn (Item $record): array => [
+                  'alt' => "{$record->ite_name} logo",
+                  'loading' => 'lazy'
+                ]),
                 Tables\Columns\TextColumn::make('ite_name')
                 ->label('Nombre')
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
                 Tables\Columns\TextColumn::make('ite_price')
                     ->label('Precio')
                     ->prefix('S/. ')
