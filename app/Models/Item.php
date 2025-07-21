@@ -11,6 +11,8 @@ class Item extends Model
       'ite_description',
       'ite_price',
       'ite_status',
+      'ite_stock',
+      'ite_discount',
       'ite_type',
       'ite_image'
     ];

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('ite_description')->nullable();
             $table->decimal('ite_price', 10, 2);
             $table->boolean('ite_status')->default(true);
+            $table->integer('ite_stock')->default(0)->nullable();
+            $table->integer('ite_discount')->default(0)->nullable();
             $table->enum('ite_type', ['producto', 'servicio']);
             $table->string('ite_image', 2048)->nullable();
             $table->timestamps();

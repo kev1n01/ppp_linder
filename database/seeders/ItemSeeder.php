@@ -19,6 +19,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Combustible gasolina de 90 octanos',
             'ite_price' => 18.50,
             'ite_status' => true,
+            'ite_stock' => '10',
+            'ite_discount' => '2',
             'ite_type' => 'producto',
         ],
         [
@@ -26,6 +28,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Combustible gasolina de 95 octanos',
             'ite_price' => 19.80,
             'ite_status' => true,
+            'ite_stock' => '20',
+            'ite_discount' => '5',
             'ite_type' => 'producto',
         ],
         [
@@ -33,6 +37,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Combustible gasolina de 97 octanos',
             'ite_price' => 20.50,
             'ite_status' => true,
+            'ite_stock' => '15',
+            'ite_discount' => '7',
             'ite_type' => 'producto',
         ],
         [
@@ -40,6 +46,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Combustible diésel B5 S50',
             'ite_price' => 17.90,
             'ite_status' => true,
+            'ite_stock' => '52',
+            'ite_discount' => '3',
             'ite_type' => 'producto',
         ],
         [
@@ -47,6 +55,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Gas Licuado de Petróleo para vehículos',
             'ite_price' => 8.50,
             'ite_status' => true,
+            'ite_stock' => '22',
+            'ite_discount' => '12',
             'ite_type' => 'producto',
         ],
 
@@ -56,6 +66,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Lavado completo del vehículo',
             'ite_price' => 15.00,
             'ite_status' => true,
+            'ite_stock' => '33',
+            'ite_discount' => '5',
             'ite_type' => 'servicio',
         ],
         [
@@ -63,6 +75,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Cambio de aceite de motor con mano de obra incluida',
             'ite_price' => 50.00,
             'ite_status' => true,
+            'ite_stock' => '22',
+            'ite_discount' => '11',
             'ite_type' => 'servicio',
         ],
         [
@@ -70,6 +84,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Servicio de inspección y ajuste de frenos',
             'ite_price' => 30.00,
             'ite_status' => true,
+            'ite_stock' => '44',
+            'ite_discount' => '5',
             'ite_type' => 'servicio',
         ],
         [
@@ -77,6 +93,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Inflado de llantas con aire o nitrógeno',
             'ite_price' => 5.00,
             'ite_status' => true,
+            'ite_stock' => '22',
+            'ite_discount' => '8',
             'ite_type' => 'servicio',
         ],
         [
@@ -84,6 +102,8 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Servicio de balanceo de neumáticos',
             'ite_price' => 25.00,
             'ite_status' => true,
+            'ite_stock' => '50',
+            'ite_discount' => '7',
             'ite_type' => 'servicio',
         ],
       ];
