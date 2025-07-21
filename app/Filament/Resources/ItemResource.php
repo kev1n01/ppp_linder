@@ -52,6 +52,15 @@ class ItemResource extends Resource
                       ->required()
                       ->prefix('S/.')
                       ->numeric(),
+                  Forms\Components\TextInput::make('ite_stock')
+                      ->label('Stock')
+                      ->default(0)
+                      ->numeric(),
+                  Forms\Components\TextInput::make('ite_discount')
+                      ->label('Descuento')
+                      ->default(0)
+                      ->suffix('%')
+                      ->numeric(),
                   Forms\Components\Select::make('ite_type')
                       ->label('Tipo')
                       ->options([
@@ -97,6 +106,14 @@ class ItemResource extends Resource
                     ->money('PEN')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('ite_discount')
+                    ->label('Descuento')
+                    ->suffix(' %')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('ite_stock')
+                    ->label('Stock')
+                    ->badge()
+                    ->sortable(),
                 Tables\Columns\ToggleColumn::make('ite_status')
                     ->onColor('success')
                     ->label('Estado')
@@ -108,6 +125,10 @@ class ItemResource extends Resource
                     }),
                 Tables\Columns\IconColumn::make('ite_type')
                     ->label('Tipo')
+                    ->tooltip(fn (string $state): string => match ($state) {
+                      'producto' => 'producto',
+                      'servicio' => 'servicio',
+                    })
                     ->icon(fn (string $state): string => match ($state) {
                       'producto' => 'heroicon-o-bolt',
                       'servicio' => 'heroicon-o-wrench',

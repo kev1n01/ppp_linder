@@ -16,7 +16,7 @@ class MarketController extends Controller
         $max    = $request->query('max_price');       // número
         $perPage= $request->query('per_page', 6);     // items por página
 
-        $query = Item::query()->where('ite_status', true)->where('ite_discount', '>', 0);
+        $query = Item::query()->where('ite_status', true)->where('ite_stock', '>', 0);
 
         if ($search) {
             $query->where('ite_name', 'like', "%{$search}%");

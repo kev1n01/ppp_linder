@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         // Ítems destacados (por ahora: los primeros 6 activos)
         $featuredItems = Item::where('ite_status', true)
-            ->where('ite_discount', '>', 0)
+            ->where('ite_stock', '>', 0)
             ->latest('id')
             ->take(6)
             ->get(['id','ite_name','ite_description','ite_price','ite_image','ite_type','ite_discount']);
