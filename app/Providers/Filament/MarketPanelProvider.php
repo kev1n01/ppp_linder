@@ -44,12 +44,12 @@ class MarketPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Market/Resources'), for: 'App\\Filament\\Market\\Resources')
             ->discoverPages(in: app_path('Filament/Market/Pages'), for: 'App\\Filament\\Market\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                // Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Market/Widgets'), for: 'App\\Filament\\Market\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -35,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => '#ff0000',
+                'primary' => '#2f6ed4',
             ])
             ->brandName('GRIFO TIBURON 555')
             ->brandLogoHeight('4rem')
