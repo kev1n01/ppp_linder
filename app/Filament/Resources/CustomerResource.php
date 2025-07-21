@@ -173,7 +173,13 @@ class CustomerResource extends Resource
                     ->label('Celular')
                     ->searchable(),
                 Tables\Columns\ToggleColumn::make('cu_status')
-                    ->label('Estado'),
+                    ->label('Estado')
+                    ->afterStateUpdated(function () {
+                      Notification::make()
+                          ->title("Estado actualizado")
+                          ->success()
+                          ->send();
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Creado el')
                     ->dateTime()

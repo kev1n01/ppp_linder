@@ -98,6 +98,9 @@ class MethodPayAccountResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('mpa_cc_numer')
                             ->label('Nº de cuenta bancaria')
+                            ->maxLength(20)
+                            ->minLength(20)
+                            ->numeric()
                             ->required(),
     
                         Forms\Components\TextInput::make('mpa_cci_numer')
@@ -108,6 +111,7 @@ class MethodPayAccountResource extends Resource
                             ->required()
                             ->helperText('La CCI debe tener exactamente 20 dígitos'),
                     ])
+                    ->reactive()
                     ->visible(fn (callable $get) => $get('mpa_type') === 'bancario')
                     ->collapsed(false),
     
@@ -115,15 +119,16 @@ class MethodPayAccountResource extends Resource
                 Forms\Components\Section::make('Billetera Digital')
                     ->schema([
                         Forms\Components\TextInput::make('mpa_phone_num')
-                            ->maxLength(9)
-                            ->minLength(9)
                             ->label('Celular de billetera digital')
-                            ->tel()
                             ->numeric()
+                            ->length(9)
+                            ->minLength(9)
+                            ->maxLength(9)
                             ->required()
                             ->placeholder('987654321')
                             ->helperText('Ingrese el número celular asociado a la billetera digital'),
                     ])
+                    ->reactive()
                     ->visible(fn (callable $get) => $get('mpa_type') === 'digital')
                     ->collapsed(false),
             ]);

@@ -141,10 +141,16 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('emp_address')
                     ->label('Dirección')
                     ->default('N/A')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
-                Tables\Columns\IconColumn::make('emp_status')
+                Tables\Columns\ToggleColumn::make('emp_status')
                     ->label('Estado')
-                    ->boolean(),
+                    ->afterStateUpdated(function () {
+                      Notification::make()
+                          ->title("Estado actualizado")
+                          ->success()
+                          ->send();
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -158,7 +164,9 @@ class EmployeeResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

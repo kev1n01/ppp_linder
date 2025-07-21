@@ -7,6 +7,7 @@ use App\Filament\Resources\ItemResource\RelationManagers;
 use App\Models\Item;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -89,7 +90,13 @@ class ItemResource extends Resource
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('ite_status')
                     ->onColor('success')
-                    ->label('Estado'),
+                    ->label('Estado')
+                    ->afterStateUpdated(function () {
+                      Notification::make()
+                          ->title("Estado actualizado")
+                          ->success()
+                          ->send();
+                    }),
                 Tables\Columns\IconColumn::make('ite_type')
                     ->label('Tipo')
                     ->icon(fn (string $state): string => match ($state) {
