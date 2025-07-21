@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\DashboardAdmin;
+use App\Models\Setting;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -23,7 +24,12 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return $panel
+            $settings = Setting::first();
+            $logo = $settings?->set_logo
+                ? asset('storage/' . $settings->set_logo)
+                : asset('images/tiburon.jpg'); 
+
+            return $panel
             ->default()
             ->id('admin')
             ->path('admin')
@@ -31,10 +37,11 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#ff0000',
             ])
-            ->brandName('GRIFO TIBURON')
-            // ->brandLogo(asset('images/logo.webp'))
-            // ->darkModeBrandLogo(asset('images/logo.webp'))
-            // ->favicon(asset('favicon.ico'))
+            ->brandName('GRIFO TIBURON 555')
+            ->brandLogoHeight('4rem')
+            ->brandLogo($logo)
+            ->darkModeBrandLogo($logo)
+            ->favicon($logo)
             ->sidebarCollapsibleOnDesktop()
             ->profile() 
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

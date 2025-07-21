@@ -28,12 +28,16 @@
             html.dark {
                 background-color: oklch(0.145 0 0);
             }
+
+            html {
+              scroll-behavior: smooth;
+            }
         </style>
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/images/tiburon.jpg" type="image/jpg">
         <link href="https://fonts.bunny.net/css?family=anybody:400,500,600" rel="stylesheet" />
         <link href="https://fonts.bunny.net/css?family=archivo:400,500,600" rel="stylesheet" />
         @routes

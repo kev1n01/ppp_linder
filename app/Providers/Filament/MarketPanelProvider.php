@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Models\Setting;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -22,6 +23,11 @@ class MarketPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $settings = Setting::first();
+        $logo = $settings?->set_logo
+            ? asset('storage/' . $settings->set_logo)
+            : asset('images/tiburon.jpg'); 
+
         return $panel
             ->id('market')
             ->path('market')
@@ -30,7 +36,11 @@ class MarketPanelProvider extends PanelProvider
             ->colors([
               'primary' => '#ff0000',
             ])
-            ->brandName('GRIFO TIBURON')
+            ->brandName('GRIFO TIBURON 555')
+            ->brandLogo($logo)
+            ->darkModeBrandLogo($logo)
+            ->favicon($logo)
+            ->brandLogoHeight('4rem')
             ->discoverResources(in: app_path('Filament/Market/Resources'), for: 'App\\Filament\\Market\\Resources')
             ->discoverPages(in: app_path('Filament/Market/Pages'), for: 'App\\Filament\\Market\\Pages')
             ->pages([
