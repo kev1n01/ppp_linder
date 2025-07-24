@@ -9,6 +9,10 @@ class SalesCountItemByType extends ChartWidget
 {
     protected static ?string $heading = 'Ventas por tipo de item';
 
+    protected static ?string $pollingInterval = '60s';
+
+    protected int | string | array $columnSpan = 'full'; 
+
     protected function getType(): string
     {
         return 'bar';

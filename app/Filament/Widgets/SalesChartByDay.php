@@ -10,6 +10,8 @@ class SalesChartByDay extends ChartWidget
 {
     protected static ?string $heading = 'Ventas por Día';
 
+    protected static ?string $pollingInterval = '60s';
+
     protected int | string | array $columnSpan = 'full'; 
 
     protected static ?int $sort = 3;

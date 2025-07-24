@@ -10,6 +10,8 @@ class SaleOverviewWidget extends BaseWidget
 {
     protected static ?int $sort = 2;
 
+    protected static ?string $pollingInterval = '60s';
+
     protected function getStats(): array
     {
         $today = now()->startOfDay()->toDateString();
