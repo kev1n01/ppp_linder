@@ -28,4 +28,15 @@ class CreateSale extends CreateRecord
         $data['customer_id'] = intval($data['customer_id']);
         return $data;
     }
+
+    protected function afterCreate(): void
+    {
+        foreach ($this->record->saleDetails as $detail) {
+          $item = $detail->item; 
+  
+          if ($item && $item->ite_stock !== null && $item->ite_type === 'producto') {
+              $item->decrement('ite_stock', $detail->sald_quantity);
+          }
+        }
+    }
 }
