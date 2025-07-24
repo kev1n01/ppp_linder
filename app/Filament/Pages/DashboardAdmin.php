@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\SaleOverviewWidget;
 use Filament\Pages\Page;
 
 class DashboardAdmin extends \Filament\Pages\Dashboard
@@ -20,5 +21,12 @@ class DashboardAdmin extends \Filament\Pages\Dashboard
     public static function canAccess(): bool
     {
         return auth()->user()->hasRole('super_admin');
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+          SaleOverviewWidget::class
+        ];
     }
 }

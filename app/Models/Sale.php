@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
@@ -14,6 +15,11 @@ class Sale extends Model
       'sal_payment_method',
       'sal_date'
     ];
+
+    public function scopeForDateRange(Builder $query, $startDate, $endDate): Builder
+    {
+      return $query->whereBetween('sal_date', [$startDate, $endDate]);
+    }
     
     // Para cambiar el campo del binding de un record al hacer Sale $sale 
     public function getRouteKeyName(): string
