@@ -18,6 +18,9 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class SaleResource extends Resource
 {
@@ -73,11 +76,143 @@ class SaleResource extends Resource
                   Forms\Components\Hidden::make('uuid'),
                   Forms\Components\Select::make('customer_id')  
                       ->label('Cliente')
-                      ->options(Customer::where('cu_status', true)->pluck('cu_name', 'id')) 
                       ->searchable()
+                      ->relationship('customer', 'cu_name')
                       ->preload()
                       ->required()
-                      ->columnSpan(2),
+                      ->columnSpan(2)
+                      ->createOptionAction(
+                        fn (Action $action) => $action->modalWidth('3xl'),
+                      )
+                      ->createOptionForm([
+                        Forms\Components\TextInput::make('cu_num_doc')
+                          ->label('Nº de documento')
+                          ->unique(ignoreRecord: true)
+                          ->autofocus()
+                          ->required()
+                          ->maxLength(11)
+                          ->minLength(8)
+                          ->required()
+                          ->suffixAction(
+                            fn ($state, $livewire, $set) => Action::make('search')
+                                ->icon('heroicon-m-magnifying-glass')
+                                ->action(function () use ($state, $livewire, $set) {
+                                    $livewire->validateOnly('data.cu_num_doc');
+                                    if (blank($state)) {
+                                        Notification::make()
+                                            ->title('El N° de documento no puede estar vacío.')
+                                            ->danger()
+                                            ->send();
+                                        return;
+                                    }
+      
+                                    if (strlen($state) === 8) {
+                                        $response = Http::withOptions([
+                                          'verify' => false,
+                                        ])->get(
+                                            'https://dniruc.apisperu.com/api/v1/dni/' . $state . '?token=' . env('VITE_TOKEN_DNI_API')
+                                        )->throw()->json();
+      
+                                        if (!$response['success']) {
+                                            Notification::make()
+                                                ->title($response['message'])
+                                                ->warning()
+                                                ->send();
+                                        }
+      
+                                        if ($response['success']) {
+                                            Notification::make()
+                                                ->title('Datos del cliente encontrados.')
+                                                ->success()
+                                                ->send();
+                                            $set('cu_name', $response['nombres'] . ' ' . $response['apellidoPaterno'] . ' ' . $response['apellidoMaterno'] ?? null);
+                                            $set('cu_type_doc', 'dni');
+                                        }
+                                    }
+      
+                                    if (strlen($state) === 11) {
+                                        $response = Http::withOptions([
+                                          'verify' => false,
+                                        ])->get(
+                                            'https://dniruc.apisperu.com/api/v1/ruc/' . $state . '?token=' . env('VITE_TOKEN_DNI_API')
+                                        )->throw()->json();
+      
+                                        if (count($response) <= 2) {
+                                            Notification::make()
+                                                ->title($response['message'] . ' o el número de RUC no se encuentra activo.')
+                                                ->warning()
+                                                ->send();
+                                        }
+      
+                                        if (count($response) > 3) {
+                                            Notification::make()
+                                                ->title('Datos del cliente encontrados.')
+                                                ->success()
+                                                ->send();
+                                            $set('cu_name', $response['razonSocial'] ?? null);
+                                            $set('cu_address', $response['direccion'] ?? null);
+                                            $set('cu_type_doc', 'ruc');
+                                        }
+                                    }
+                                })
+                        ),
+                        Forms\Components\Select::make('cu_type_doc')
+                            ->label('Tipo de documento')
+                            ->required()
+                            ->searchable()
+                            ->options([
+                                'dni' => 'DNI',
+                                'ruc' => 'RUC',
+                            ]),
+                        Forms\Components\TextInput::make('cu_name')
+                            ->unique(ignoreRecord: true)
+                            ->label('Nombres')
+                            ->required(),
+                        Forms\Components\TextInput::make('cu_email')
+                            ->unique(ignoreRecord: true)
+                            ->email()
+                            ->label('Correo Electrónico'),
+                        Forms\Components\TextInput::make('cu_address')
+                            ->label('Dirección'),
+                        Forms\Components\TextInput::make('cu_phone')
+                            ->unique(ignoreRecord: true)
+                            ->label('Celular')
+                            ->tel(),
+                        Forms\Components\Hidden::make('user_id'),
+                        Forms\Components\Toggle::make('cu_status')
+                          ->label('Estado')
+                          ->default(true)
+                          ->required(),    
+                      ])
+                      ->createOptionUsing(function (array $data){
+                            // Crear el usuario
+                            if(empty($data['cu_email'])){
+                              $email = generate_email_from_name($data['cu_name']);
+                            }else{
+                              $email = $data['cu_email'];
+                            }
+
+                            $user = User::create([
+                                'name' => $data['cu_name'],
+                                'email' => $email,
+                                'password' => Hash::make($data['cu_num_doc']),
+                                'email_verified_at' => now(), 
+                            ]);
+
+                            $record = Customer::create([
+                              'cu_name' => $data['cu_name'],
+                              'cu_num_doc' => $data['cu_num_doc'],
+                              'cu_type_doc' => $data['cu_type_doc'],
+                              'cu_email' => $data['cu_email'],
+                              'cu_address' => $data['cu_address'],
+                              'cu_phone' => $data['cu_phone'],
+                              'cu_status' => $data['cu_status'],
+                              'user_id' => $user->id,
+                            ]);
+                            
+                            return $record;
+                      }),
+
                   Forms\Components\Select::make('sal_payment_method')
                       ->label('Método de pago')
                       ->default('efectivo')
