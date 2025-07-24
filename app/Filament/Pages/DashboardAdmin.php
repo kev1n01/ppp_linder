@@ -2,7 +2,10 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\ItemOverviewWidget;
 use App\Filament\Widgets\SaleOverviewWidget;
+use App\Filament\Widgets\SalesChartByDay;
+use App\Filament\Widgets\SalesCountItemByType;
 use Filament\Pages\Page;
 
 class DashboardAdmin extends \Filament\Pages\Dashboard
@@ -26,7 +29,10 @@ class DashboardAdmin extends \Filament\Pages\Dashboard
     protected function getHeaderWidgets(): array
     {
         return [
-          SaleOverviewWidget::class
+          ItemOverviewWidget::class,
+          SaleOverviewWidget::class,
+          SalesChartByDay::class,
+          SalesCountItemByType::class,
         ];
     }
 }
