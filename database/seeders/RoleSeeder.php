@@ -23,6 +23,10 @@ class RoleSeeder extends Seeder
           'update_sale',
           'view_any_item',
           'view_item',
+          'view_any_customer',
+          'view_customer',
+          'create_customer',
+          'update_customer',
         ]);
 
         // $roleCustomer->givePermissionTo([
