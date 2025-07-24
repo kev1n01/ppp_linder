@@ -14,6 +14,7 @@ class ItemSeeder extends Seeder
     public function run(): void
     {
       $items = [
+        // productos
         [
             'ite_name' => 'Gasolina 90',
             'ite_description' => 'Combustible gasolina de 90 octanos',
@@ -60,13 +61,13 @@ class ItemSeeder extends Seeder
             'ite_type' => 'producto',
         ],
 
-        // itevicios adicionales
+        // servicios adicionales
         [
             'ite_name' => 'Lavado de auto',
             'ite_description' => 'Lavado completo del vehículo',
             'ite_price' => 15.00,
             'ite_status' => true,
-            'ite_stock' => '33',
+            'ite_stock' => '0',
             'ite_discount' => '5',
             'ite_type' => 'servicio',
         ],
@@ -75,7 +76,7 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Cambio de aceite de motor con mano de obra incluida',
             'ite_price' => 50.00,
             'ite_status' => true,
-            'ite_stock' => '22',
+            'ite_stock' => '0',
             'ite_discount' => '11',
             'ite_type' => 'servicio',
         ],
@@ -84,7 +85,7 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Servicio de inspección y ajuste de frenos',
             'ite_price' => 30.00,
             'ite_status' => true,
-            'ite_stock' => '44',
+            'ite_stock' => '0',
             'ite_discount' => '5',
             'ite_type' => 'servicio',
         ],
@@ -93,7 +94,7 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Inflado de llantas con aire o nitrógeno',
             'ite_price' => 5.00,
             'ite_status' => true,
-            'ite_stock' => '22',
+            'ite_stock' => '0',
             'ite_discount' => '8',
             'ite_type' => 'servicio',
         ],
@@ -102,7 +103,7 @@ class ItemSeeder extends Seeder
             'ite_description' => 'Servicio de balanceo de neumáticos',
             'ite_price' => 25.00,
             'ite_status' => true,
-            'ite_stock' => '50',
+            'ite_stock' => '0',
             'ite_discount' => '7',
             'ite_type' => 'servicio',
         ],
