@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Notifications\Notification;
 
 class SaleResource extends Resource
 {
@@ -136,6 +137,7 @@ class SaleResource extends Resource
                         ->afterStateUpdated(function ($state, callable $set) {
                             $item = Item::find($state);
                             if ($item) {
+                                $set('type', $item->ite_type);
                                 $set('sald_price', $item->ite_price);
                                 $set('sald_subtotal', $item->ite_price);
                             }
@@ -144,15 +146,29 @@ class SaleResource extends Resource
                         ->preload()
                         ->required(),
   
+                  Forms\Components\Hidden::make('type')
+                        ->dehydrated(false),
                   Forms\Components\TextInput::make('sald_quantity')
                         ->label('Cantidad')
                         ->integer()
                         ->afterStateUpdated(function ($state, callable $set, callable $get){
-                            $set('sald_subtotal', 0);
-                            $set('sald_subtotal', number_format($get('sald_price') * $state, 2, '.', ''));
+                            if($get('item_id')){
+                              $item = Item::find($get('item_id'));
+                              if($item && $item->ite_stock >= $state){
+                                $set('sald_subtotal', 0);
+                                $set('sald_subtotal', number_format($get('sald_price') * $state, 2, '.', ''));
+                              }else{
+                                Notification::make()
+                                ->title('Este producto solo tiene un stock de: ' . $item->ite_stock)
+                                ->danger()
+                                ->send();
+                              }
+                            }
                         })
+                        ->disabled(fn (callable $get) => !$get('item_id'))
+                        ->readOnly(fn (callable $get) => $get('type') === 'servicio')
                         ->default(1)
-                        ->required(),
+                        ->required(fn (callable $get) => $get('type') !== 'servicio'),
   
                   Forms\Components\TextInput::make('sald_price')
                         ->label('Precio')
@@ -243,8 +259,9 @@ class SaleResource extends Resource
                   // Tables\Actions\Action::make('pdf vista')
                   // ->icon('heroicon-o-document')
                   // ->url(fn($record) => self::getUrl("pdf", [ 'record' => $record])),
-                  Tables\Actions\EditAction::make(),
+                  Tables\Actions\EditAction::make()->visible(fn () => auth()->user()->hasRole('super_admin')),
                   Tables\Actions\ViewAction::make(),
+                  Tables\Actions\DeleteAction::make()->visible(fn () => auth()->user()->hasRole('super_admin')),
               ])
             ])
             ->bulkActions([
