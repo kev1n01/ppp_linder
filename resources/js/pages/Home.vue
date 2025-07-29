@@ -65,18 +65,16 @@ const settings = page.props.settings as any;
     <!-- CONTACTO -->
     <section id="contacto" class="bg-gray-100 py-16">
         <h2 class="text-3xl font-bold text-center mb-6 text-black">Contáctanos</h2>
-        <div class="flex gap-10 max-w-7xl mx-auto px-4 sm:flex-row flex-col">
+        <div class="flex gap-10 max-w-7xl mx-auto px-4 sm:flex-row flex-col text-black">
           <form action="#" method="POST" class="space-y-4">
             <input type="text" placeholder="Nombre" class="w-full border rounded p-2" required>
-            <input type="email" placeholder="Correo" class="w-full border rounded p-2" required>
+            <input type="email" placeholder="Correo electrónico" class="w-full border rounded p-2" required>
             <textarea rows="4" placeholder="Mensaje" class="w-full border rounded p-2" required></textarea>
             <button type="submit"
               class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded">Enviar</button>
           </form>
           <div class="w-full">
-            <iframe v-if="settings?.set_address" class="w-full h-72 sm:h-full rounded"
-              :src="`https://www.google.com/maps?q=${encodeURIComponent(settings.set_address)}&output=embed`"
-              loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1488.311985458321!2d-76.51515673837568!3d-10.491188827509975!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2spe!4v1753807614240!5m2!1ses!2spe" class="w-full h-72 sm:h-full rounded" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
     </section>
