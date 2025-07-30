@@ -31,6 +31,9 @@
           <li><a href="#stack-tecnológico-usadas-en-el-desarrollo">Stack Tecnológico usadas en el desarrollo</a></li>
           <li><a href="#futuras-mejoras">Futuras Mejoras</a></li>
           <li><a href="#screenshots">Screenshots</a></li>
+          <li><a href="#manual-tecnico">Manual tecnico</a></li>
+          <li><a href="#manual-de-usuario">Manual de usuario</a></li>
+          <li><a href="#cronograma-de-actividades">Cronograma de actividades</a></li>
       </ul>
     </li>
   </ol>
@@ -168,7 +171,7 @@ En la carpeta llamado **/recursos** dejo todo lo necesario imagenes pdf, .sql
   - Página de inicio pública con diseño atractivo.
   - Muestra de productos y servicios destacados con descuentos.
   - Sistema de filtros por tipo (producto o servicio) y por nombre.
-  - Acceso directo al login y otros módulos internos según el rol.
+  - Acceso directo al login y otros módulos internos para un cliente.
   
   **3. Integración con API de terceros (APIs Perú)**
   - Consulta automática de nombres completos y razón social a través de DNI y RUC para agilizar el registro de nuevos clientes y empleados.
@@ -226,4 +229,83 @@ En la carpeta llamado **/recursos** dejo todo lo necesario imagenes pdf, .sql
   - 📦 Control de stock avanzado: alertas por niveles mínimos y máximos de productos.
 
 ### Screenshots
+1. Landing page vista publica 
+![alt text](image.png)
+- Productos y servicios vista publica
+![alt text](image-7.png)
+2. Autenticacion
+- Login para admin y empleados
+![alt text](image-5.png)
+-Login para clientes
+![alt text](image-6.png)
+3. Perfil de usuario
+![alt text](image-4.png)
+4. Integracion de API por dni y ruc
+![alt text](image-3.png)
+5. Personalizacion visual
+![alt text](image-2.png)
+6. Dashboard administrativo solo admin
+![alt text](image-1.png)
+7. Modulo clientes admin
+![alt text](image-9.png)
+8. Modulo empleado admin
+![alt text](image-10.png)
+9. Modulo items admin
+![alt text](image-8.png)
+10. Modulo ventas admin
+![alt text](image-11.png)
+11. Modulo usuarios admin
+![alt text](image-12.png)
+12. Modulo roles y permisos
+![alt text](image-13.png)
+13. Modulo configurar empresa admin
+![alt text](image-14.png)
+14. Modulo ventas empleado
+![alt text](image-15.png)
+![alt text](image-16.png)
+15. Modulo cliente empleado
+![alt text](image-17.png)
+16. Modulo mis compras cliente
+![alt text](image-18.png)
+17. Modulo lista de items cliente
+![alt text](image-19.png)
+10. Rendimiento de la pagina web
 ![alt text](recursos/readme_img/image_screen_performance.png)
+
+### Manual tecnico
+
+### Manual de usuario
+
+### Cronograma de actividades
+
+| Fase                        | Actividad / Subactividad                                   | Duración estimada | Mes     | 
+| --------------------------- | ---------------------------------------------------------- | ----------------- | ------- | 
+| Análisis y planificación | Recolección de requerimientos funcionales y no funcionales | 1 semana          | Mes 1   | 
+|                             | Definición de roles y permisos                             | 2 días            | Mes 1   |
+|                             | Priorización de módulos principales                        | 3 días            | Mes 1   |
+|                             | Diseño del roadmap del producto                            | 2 días            | Mes 1   |
+| Diseño del sistema       | Diseño de arquitectura general del sistema (MVC, DB)       | 1 semana          | Mes 1   | 
+|                             | Diseño de base de datos (modelos, relaciones)              | 4 días            | Mes 1   |
+|                             | Mockups de interfaz (landing + paneles)                    | 1 semana          | Mes 1   |
+| Desarrollo backend      | Configuración del entorno (Laravel, Filament, Inertia)     | 2 días            | Mes 2   | 
+|                             | Módulo de autenticación con roles                          | 3 días            | Mes 2   |
+|                             | Creacion de migraciones y modelos                           | 1 semana          | Mes 2   |
+|                             | API Perú: Integración para DNI/RUC                         | 3 días            | Mes 2   | 
+| Desarrollo frontend      | Maquetación de landing page con Vue + Tailwind             | 1 semana          | Mes 2   | 
+|                             | Navbar, Hero, Productos destacados, Footer                 | 1 semana          | Mes 2-3 |
+|                             | Página de items y servicios (con filtros, cards, buscador) | 1 semana          | Mes 3   |
+| Desarrollo panel admin   | Módulo de Items (CRUD + filtros + descuentos + stock)      | 1 semana          | Mes 3   | 
+|                             | Módulo de Ventas (repeater + PDF + stock dinámico)         | 1 semana          | Mes 3   |
+|                             | Módulo de Clientes y Empleados                             | 1 semana          | Mes 3   |
+|                             | Módulo de Configuración general                            | 4 días            | Mes 3   |
+| Estadísticas y gráficos  | Dashboard con widgets de estadísticas (ventas, items)      | 1 semana          | Mes 4   | 
+|                             | Gráfico de línea y barra por tipo y por día                | 4 días            | Mes 4   |
+|                             | Widgets de top productos, servicios, bajo stock            | 3 días            | Mes 4   |
+| Pruebas                  | Pruebas funcionales de cada módulo                         | 1 semana          | Mes 4   | 
+|                             | Pruebas de roles y accesos                                 | 3 días            | Mes 4   | 
+|                             | Validaciones de formularios y errores                      | 3 días            | Mes 4   | 
+| Lanzamiento inicial      | Despliegue en servidor de staging                          | 2 días            | Mes 5   | 
+|                             | Corrección de errores post QA                              | 3 días            | Mes 5   |
+|                             | Revisión con cliente / revisión final                      | 2 días            | Mes 5   |
+|                             | Despliegue a producción                                   | 2 días            | Mes 5   |
+| Documentación final      | Manual técnico y de usuario                                | 1 semana          | Mes 5   | 
