@@ -19,15 +19,20 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Schema;
 
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-            $settings = Setting::first();
-            $logo = $settings?->set_logo
-                ? asset('storage/' . $settings->set_logo)
-                : asset('images/tiburon.jpg'); 
+            $logo = asset('images/tiburon.jpg');
+
+            if (Schema::hasTable('settings')) {
+                $settings = Setting::first();
+                if ($settings?->set_logo) {
+                    $logo = asset('storage/' . $settings->set_logo);
+                }
+            }
 
             return $panel
             ->default()
