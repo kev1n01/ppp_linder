@@ -230,45 +230,45 @@ En la carpeta llamado **/recursos** dejo todo lo necesario imagenes pdf, .sql
 
 ### Screenshots
 1. Landing page vista publica 
-![alt text](image.png)
+![alt text](recursos/readme_img/ss_app/image.png)
 - Productos y servicios vista publica
-![alt text](image-7.png)
+![alt text](recursos/readme_img/ss_app/image-7.png)
 2. Autenticacion
 - Login para admin y empleados
-![alt text](image-5.png)
+![alt text](recursos/readme_img/ss_app/image-5.png)
 -Login para clientes
-![alt text](image-6.png)
+![alt text](recursos/readme_img/ss_app/image-6.png)
 3. Perfil de usuario
-![alt text](image-4.png)
+![alt text](recursos/readme_img/ss_app/image-4.png)
 4. Integracion de API por dni y ruc
-![alt text](image-3.png)
+![alt text](recursos/readme_img/ss_app/image-3.png)
 5. Personalizacion visual
-![alt text](image-2.png)
+![alt text](recursos/readme_img/ss_app/image-2.png)
 6. Dashboard administrativo solo admin
-![alt text](image-1.png)
+![alt text](recursos/readme_img/ss_app/image-1.png)
 7. Modulo clientes admin
-![alt text](image-9.png)
+![alt text](recursos/readme_img/ss_app/image-9.png)
 8. Modulo empleado admin
-![alt text](image-10.png)
+![alt text](recursos/readme_img/ss_app/image-10.png)
 9. Modulo items admin
-![alt text](image-8.png)
+![alt text](recursos/readme_img/ss_app/image-8.png)
 10. Modulo ventas admin
-![alt text](image-11.png)
+![alt text](recursos/readme_img/ss_app/image-11.png)
 11. Modulo usuarios admin
-![alt text](image-12.png)
+![alt text](recursos/readme_img/ss_app/image-12.png)
 12. Modulo roles y permisos
-![alt text](image-13.png)
+![alt text](recursos/readme_img/ss_app/image-13.png)
 13. Modulo configurar empresa admin
-![alt text](image-14.png)
+![alt text](recursos/readme_img/ss_app/image-14.png)
 14. Modulo ventas empleado
-![alt text](image-15.png)
-![alt text](image-16.png)
+![alt text](recursos/readme_img/ss_app/image-15.png)
+![alt text](recursos/readme_img/ss_app/image-16.png)
 15. Modulo cliente empleado
-![alt text](image-17.png)
+![alt text](recursos/readme_img/ss_app/image-17.png)
 16. Modulo mis compras cliente
-![alt text](image-18.png)
+![alt text](recursos/readme_img/ss_app/image-18.png)
 17. Modulo lista de items cliente
-![alt text](image-19.png)
+![alt text](recursos/readme_img/ss_app/image-19.png)
 10. Rendimiento de la pagina web
 ![alt text](recursos/readme_img/image_screen_performance.png)
 
