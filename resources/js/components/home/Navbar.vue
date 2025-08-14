@@ -2,7 +2,15 @@
 import { Link, usePage } from '@inertiajs/vue3'
 
 const page = usePage();
-const settings = page.props.settings as any;
+
+defineProps(
+  {
+    settings: {
+      type: Object,
+      default: () => ({})
+    }
+  }
+)
 </script>
 
 <template>

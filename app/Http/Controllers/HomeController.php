@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,6 +20,7 @@ class HomeController extends Controller
 
         return Inertia::render('Home', [
             'featuredItems' => $featuredItems,
+            'settings' => Setting::first()
         ]);
     }
 }

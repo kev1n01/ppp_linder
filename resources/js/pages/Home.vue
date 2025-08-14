@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link, usePage } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
 import Navbar from '@/components/home/Navbar.vue'
 import Footer from '@/Components/home/Footer.vue'
 import WhatsAppButton from '@/Components/home/WhatsAppButton.vue'
@@ -17,19 +17,24 @@ interface Item {
 }
 
 interface Props {
-  featuredItems: Item[]
+  featuredItems: Item[],
+  settings: {
+    set_name: string,
+    set_address: string,
+    set_phone: string,
+    set_email: string,
+    set_logo?: string | null
+  }
 }
 
 const props = defineProps<Props>()
-const page = usePage();
-const settings = page.props.settings as any;
 </script>
 
 <template>
   <div>
 
     <Head title="Home" />
-    <Navbar id="home"/>
+    <Navbar id="home" :settings="props.settings" />
 
     <!-- HERO -->
     <section
@@ -79,7 +84,7 @@ const settings = page.props.settings as any;
         </div>
     </section>
 
-    <Footer />
-    <WhatsAppButton />
+    <Footer :settings="props.settings" />
+    <WhatsAppButton :settings="props.settings" />
   </div>
 </template>

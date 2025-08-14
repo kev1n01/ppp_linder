@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3'
-const page = usePage();
-const settings = page.props.settings as any;
-const phone = settings?.set_phone ? settings.set_phone.replace(/[^0-9]/g, '') : ''
+const props  = defineProps(
+  {
+    settings: {
+      type: Object,
+      default: () => ({})
+    }
+  }
+)
+
+const phone = props .settings?.set_phone ? props .settings.set_phone.replace(/[^0-9]/g, '') : ''
 const waUrl = phone ? `https://wa.me/51${phone}` : '#'
 </script>
 
