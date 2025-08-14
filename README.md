@@ -127,6 +127,9 @@ ingresar a tu php.ini, busca la extension "pdo_sqlite", elimina el " ; ", y guar
 - Cuando quieres hacer un refresh
 ``` sh
   php artisan migrate:fresh --seed
+
+  #Si hacer un refresh y tienes imagenes subidas de settings, items, etc ejecuta el sigueinte comando
+  php artisan storage:clean-public #Limpiara los archivos de tu storage/public
 ```
 ![alt text](recursos/readme_img/image-3.png)
 
