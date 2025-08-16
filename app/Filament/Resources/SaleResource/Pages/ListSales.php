@@ -15,7 +15,7 @@ class ListSales extends ListRecords
     {
         $user = auth()->user();
         if ($user->hasRole('empleado')) {
-          return static::getResource()::getEloquentQuery()->where('employee_id',  $user->employee->id);
+          return static::getResource()::getEloquentQuery()->where('user_id',  $user->id);
         }else{
           return static::getResource()::getEloquentQuery();
         }

@@ -15,15 +15,15 @@ class CreateSale extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $user = auth()->user();
-        if (!$user->hasRole('empleado')) {
-          Notification::make()
-          ->title('Solo los empleados pueden realizar una venta')
-          ->danger()
-          ->send();
+        // if (!$user->hasRole('empleado')) {
+        //   Notification::make()
+        //   ->title('Solo los empleados pueden realizar una venta')
+        //   ->danger()
+        //   ->send();
           
-          $this->halt(); 
-        }
-        $data['employee_id'] = auth()->user()->employee->id;
+        //   $this->halt(); 
+        // }
+        $data['user_id'] = auth()->user()->id;
         $data['uuid'] = Str::uuid();
         $data['customer_id'] = intval($data['customer_id']);
         return $data;

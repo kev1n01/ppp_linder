@@ -19,35 +19,37 @@
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4" wire:loading.remove wire:target="selectedType, page">
       @foreach($items as $item)
-        <x-filament::card>
-            <span class="px-3 border rounded-md mb-4 text-primary-400 text-base font-semibold">
-              {{ $item->ite_discount }} %
-            </span>
-            <x-filament::avatar
-                class="mb-4"
-                :circular="false"
-                src="{{ $item->ite_image ? asset('storage/'.$item->ite_image) : asset('images/no-image.jpg') }}" 
-                alt="{{ $item->ite_name }}"
-                size="w-40 h-40"
-            />
+        <div class="relative">
+          <x-filament::card>
+              <span class="px-3 border rounded-md mb-4 text-primary-400 text-base font-semibold absolute top-2 right-2">
+                {{ $item->ite_discount }} %
+              </span>
+              <x-filament::avatar
+                  class="mb-4"
+                  :circular="false"
+                  src="{{ $item->ite_image ? asset('storage/'.$item->ite_image) : asset('images/no-image.jpg') }}" 
+                  alt="{{ $item->ite_name }}"
+                  size="w-40 h-40"
+              />
 
-            <x-filament::section>
-                <x-slot name="heading">
-                  <h3 class="text-lg font-bold">
-                    {{ $item->ite_name }}
-                  </h3>
-                </x-slot>
+              <x-filament::section>
+                  <x-slot name="heading">
+                    <h3 class="text-lg font-bold">
+                      {{ $item->ite_name }}
+                    </h3>
+                  </x-slot>
 
-                <x-slot name="description">
-                  {{ $item->ite_description }}
-                </x-slot>
+                  <x-slot name="description">
+                    {{ $item->ite_description }}
+                  </x-slot>
 
-                {{-- Content --}}
-                <p class="text-xl font-semibold text-primary-400">S/. {{ number_format(($item->ite_price - ($item->ite_price * $item->ite_discount / 100)), 2) }} <span class="text-base font-normal text-gray-500">Oferta</span></p>
+                  {{-- Content --}}
+                  <p class="text-xl font-semibold text-primary-400">S/. {{ number_format(($item->ite_price - ($item->ite_price * $item->ite_discount / 100)), 2) }} <span class="text-base font-normal text-gray-500">Oferta</span></p>
 
-                <p class="text-base text-gray-500" style="text-decoration-line: line-through;" >S/. {{ number_format($item->ite_price, 2) }}</p>
-            </x-filament::section>
-        </x-filament::card>
+                  <p class="text-base text-gray-500" style="text-decoration-line: line-through;" >S/. {{ number_format($item->ite_price, 2) }}</p>
+              </x-filament::section>
+          </x-filament::card>
+        </div>
       @endforeach
   </div>
 

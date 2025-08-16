@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->foreignId('employee_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('sal_total_amount', 10, 2);
             $table->enum('sal_payment_method', ['efectivo', 'tarjeta']);
             $table->date('sal_date');

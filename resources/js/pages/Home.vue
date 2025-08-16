@@ -38,10 +38,10 @@ const props = defineProps<Props>()
 
     <!-- HERO -->
     <section
-      class="relative h-[60vh] md:h-[70vh] flex items-center justify-center bg-[url('/images/grifo-hero.jpg')] bg-cover bg-center">
-      <div class="absolute inset-0 bg-black/60"></div>
+      class="relative h-[60vh] md:h-[70vh] flex items-center justify-center bg-[url('/images/grifo-hero.webp')] bg-cover bg-center">
+      <div class="absolute inset-0 bg-black/30"></div>
       <div class="relative z-10 text-center px-4">
-        <h1 class="text-3xl md:text-8xl font-bold text-white mb-4">Grifo Tiburón 555</h1>
+        <h1 class="text-3xl md:text-8xl font-bold text-gray-200 mb-4">Grifo Tiburón 555</h1>
         <p class="text-white/90 max-w-xl mx-auto mb-6 text-xl">Combustibles de calidad, atención rápida y servicios para
           tu vehículo.</p>
         <div class="flex flex-wrap justify-center gap-4">

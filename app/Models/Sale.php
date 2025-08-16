@@ -10,7 +10,7 @@ class Sale extends Model
     protected $fillable = [
       'uuid',
       'customer_id',
-      'employee_id',
+      'user_id',
       'sal_total_amount',
       'sal_payment_method',
       'sal_date'
@@ -32,9 +32,9 @@ class Sale extends Model
         return $this->belongsTo(Customer::class);
     }
     
-    public function employee()
+    public function user()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(User::class);
     }
     
     public function saleDetails()

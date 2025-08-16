@@ -43,7 +43,7 @@ class SaleResource extends Resource
       $user = auth()->user();
 
       if ($user->hasRole('empleado')) {
-        return static::getModel()::where('employee_id', $user->employee->id)->count();
+        return static::getModel()::where('user_id', $user->id)->count();
       }else{
         return static::getModel()::count();
       }
@@ -72,7 +72,7 @@ class SaleResource extends Resource
             ->schema([
               Forms\Components\Section::make('Información de la Venta')
               ->schema([
-                  Forms\Components\Hidden::make('employee_id'),
+                  Forms\Components\Hidden::make('user_id'),
                   Forms\Components\Hidden::make('uuid'),
                   Forms\Components\Select::make('customer_id')  
                       ->label('Cliente')
@@ -342,7 +342,7 @@ class SaleResource extends Resource
                   ->label('Cliente')
                   ->searchable()
                   ->sortable(),
-                Tables\Columns\TextColumn::make('employee.user.name')
+                Tables\Columns\TextColumn::make('user.name')
                     ->label('Empleado')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable()
@@ -418,7 +418,7 @@ class SaleResource extends Resource
         return [
             'index' => Pages\ListSales::route('/'),
             'create' => Pages\CreateSale::route('/create'),
-            'edit' => Pages\EditSale::route('/{record}/edit'),
+            // 'edit' => Pages\EditSale::route('/{record}/edit'),
             // 'pdf' => Pages\PdfViewSale::route('/view/{record}/pdf')
         ];
     }
