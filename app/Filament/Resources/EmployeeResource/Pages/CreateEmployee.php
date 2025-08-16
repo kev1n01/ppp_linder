@@ -37,10 +37,10 @@ class CreateEmployee extends CreateRecord
                 'email_verified_at' => now(), 
             ]);
 
-            // Asignar el rol cliente
+            // Asignar el rol empleado
             $user->assignRole('empleado');
 
-            // Asignar el user_id al customer
+            // Asignar el user_id al empleado
             $data['user_id'] = $user->id;
         }
 

@@ -33,7 +33,10 @@ class CreateCustomer extends CreateRecord
                 'email_verified_at' => now(), 
             ]);
 
-            // Asignar el user_id al customer
+            // Asignar el rol cliente
+            $user->assignRole('cliente');
+
+            // Asignar el user_id al cliente
             $data['user_id'] = $user->id;
         }
 
