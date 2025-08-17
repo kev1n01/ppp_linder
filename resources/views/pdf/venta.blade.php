@@ -33,7 +33,7 @@
             <p><span class="font-semibold">Codigo:</span> {{ getCodFromUUID($sale->uuid) }}</p>
             <p><span class="font-semibold">Fecha:</span> {{ \Carbon\Carbon::parse($sale->sal_date)->format('d/m/Y') }}</p>
             <p><span class="font-semibold">Método de pago:</span> {{ ucfirst($sale->sal_payment_method) }}</p>
-            <p><span class="font-semibold">Atendido por:</span>  {{ $sale->employee->user->name }}</p>
+            <p><span class="font-semibold">Atendido por:</span>  {{ $sale->user->name }}</p>
         </div>
     </section>
 

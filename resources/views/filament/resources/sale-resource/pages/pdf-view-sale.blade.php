@@ -32,7 +32,7 @@
         <hr>
         <p class="text-sm text-slate-500">Codigo: {{ getCodFromUUID($record->uuid) }}</p>
         <p class="text-sm text-slate-500">Fecha: {{ \Carbon\Carbon::parse($record->sal_date)->format('d/m/Y') }}</p>
-        <p class="text-sm text-slate-500">Atencion: {{ $record->employee->user->name }}</p>
+        <p class="text-sm text-slate-500">Atencion: {{ $record->user->name }}</p>
       </div>
     </div>
 

@@ -21,13 +21,20 @@ class DashboardAdmin extends \Filament\Pages\Dashboard
         return 'Bienvenido ' . auth()->user()->name;
     }
 
-    public static function canAccess(): bool
-    {
-        return auth()->user()->hasRole('super_admin');
-    }
+    // public static function canAccess(): bool
+    // {
+    //     return auth()->user()->hasRole('super_admin');
+    // }
 
     protected function getHeaderWidgets(): array
     {
+        if (auth()->user()->hasRole('empleado')) {
+            return [
+              SaleOverviewWidget::class,
+              SalesChartByDay::class,
+            ];
+        }
+
         return [
           ItemOverviewWidget::class,
           SaleOverviewWidget::class,
